@@ -1,0 +1,39 @@
+{
+  "name": "roast",
+  "version": "0.1.0",
+  "description": "Evidence-based code roast CLI — install roast skill for AI coding agents",
+  "type": "module",
+  "bin": {
+    "roast": "./installer/bin/cli.js"
+  },
+  "files": [
+    "installer/bin/",
+    "installer/src/",
+    "skills/",
+    "rules/",
+    "scripts/"
+  ],
+  "scripts": {
+    "test": "node --test installer/tests/*.test.js"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "roast",
+    "code-review",
+    "ai-agents",
+    "cursor",
+    "claude",
+    "codex",
+    "cli"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dchatterjee/roast.git"
+  }
+}

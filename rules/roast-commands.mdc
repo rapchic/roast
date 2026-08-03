@@ -1,0 +1,46 @@
+---
+name: roast-commands
+description: Slash commands for evidence-based roast modes — /roast, /roast-only, /roast-idea, /roast-ui, /roast-api
+alwaysApply: false
+---
+
+# Roast Commands
+
+Evidence-based code review. Not comedy. Every finding cites `path:line`, diff, or test output. Output in chat only — no roast markdown files in the repo.
+
+**Before any roast:** run `npx roast context` and `npx roast diff --base auto` (or read equivalent INIT data). Load the `roast` skill.
+
+## Commands
+
+| Command | Mode | Behavior |
+|---------|------|----------|
+| `/roast` | roast-and-fix | INIT → findings → minimal fix → verify |
+| `/roast-only` | roast-only | INIT → findings → verdict — **no file edits** |
+| `/roast-idea` | roast-idea | Critique proposal/plan before any implementation |
+| `/roast-ui` | roast-only (frontend) | Scope: components, styles, a11y, client state |
+| `/roast-api` | roast-only (backend) | Scope: handlers, schema, auth, errors, API contracts |
+
+## Natural language triggers
+
+Same modes via chat:
+- "roast independently" → roast-only
+- "roast and fix" → roast-and-fix
+- "roast this idea before implementing" → roast-idea
+- "don't patch" / "senior architect" → roast-no-patch
+
+## Output shape
+
+```markdown
+## 🔥 Roast: [target]
+### Context (init) ...
+### The real problem ...
+### Findings (🔴🟠🟡🟢 with path:line) ...
+### Fix path ... (fix modes only)
+```
+
+## Hard rules
+
+- NEVER roast without Phase 0 INIT
+- NEVER vague findings
+- NEVER write unsolicited `*_ROAST.md` files
+- NEVER edit files in `/roast-only`, `/roast-ui`, `/roast-api`, `/roast-idea` unless user escalates
