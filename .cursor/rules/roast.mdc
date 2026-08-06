@@ -1,0 +1,38 @@
+---
+name: roast
+description: Roast slash commands — /roast, /roast-only, /roast-idea, /roast-what, /roast-learn, /roast-install. Skill is /roast-full. Install via /roast-install if missing.
+alwaysApply: false
+---
+
+# Roast
+
+Evidence-based code review. Not comedy. Compact chat output — no roast markdown files in the repo.
+
+**Slash map**
+
+| Slash | Kind | Role |
+|-------|------|------|
+| `/roast` | **command** | roast-and-fix |
+| `/roast-only` | **command** | verdict only |
+| `/roast-idea` | **command** | critique plan |
+| `/roast-what` | **command** | plain-English explainer (diff or prior roast) |
+| `/roast-learn` | **command** | learn project patterns → `.cursor/rules/roast-patterns.mdc` |
+| `/roast-install` | **command** | install only |
+| `/roast-full` | **skill** | full playbook (`skills/roast/SKILL.md`) |
+
+Prefer the **commands**. `/roast-full` is the same skill loaded directly — not a second product.
+
+**Install:** If neither `~/.cursor/skills/roast/SKILL.md` nor `.cursor/skills/roast/SKILL.md` exists, run **`/roast-install`** first.
+
+**Before any roast:** `npx roastit context --format json` and `npx roastit diff --base auto --format json`. Load the **roast-full** skill. Prefer JSON INIT; do not re-read convention files unless citing a violation. (`/roast-what` translating an in-chat roast may skip re-INIT. `/roast-learn` always INIT + may write `roast-patterns.mdc`.)
+
+## Hard rules
+
+- NEVER roast without Phase 0 INIT (except roast-what translating a prior roast already in chat)
+- NEVER vague findings (roast modes)
+- NEVER write unsolicited `*_ROAST.md` files
+- NEVER edit files in roast-only / roast-idea / roast-what unless user escalates
+- `/roast-learn` may **only** upsert `.cursor/rules/roast-patterns.mdc`
+- NEVER create `AGENTS.md` during a roast (opt-in: `npx roastit init --agents`)
+- Scope budget: default ≤30 files from diff/target — ask before expanding
+- Be brief — no tool-use narration in chat

@@ -1,59 +1,85 @@
-# roast
+# roastit
 
-Evidence-based code roast CLI for AI coding agents. Installs a **roast skill** and slash commands to Cursor, Claude Code, and Codex. Gathers repo context and git diff signals — **no LLM inside the CLI**; your agent runs the roast.
+[![npm version](https://img.shields.io/npm/v/roastit.svg)](https://www.npmjs.com/package/roastit)
+[![license: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
+[![CI](https://github.com/dchatterjee/roast/actions/workflows/ci.yml/badge.svg)](https://github.com/dchatterjee/roast/actions/workflows/ci.yml)
 
-## Package name
+**Evidence-based code roast for AI coding agents** — install once, roast any repo with citations. No LLM in the CLI; your agent runs the roast.
 
-Published as **`roast`** (unscoped). Short, neutral, `npx`-friendly. If taken on npm, use `@your-scope/roast`.
-
-## Install
+## Quick start
 
 ```bash
-# Zero-install
-npx roast install
-
-# Global
-npm install -g roast
-roast install
-
-# Specific IDEs
-npx roast install --tools cursor,claude --yes
+npx -y roastit@latest bootstrap --yes
 ```
 
-## Commands
+Restart Cursor, then **`/roast`**.
+
+**Team repos:** commit `.cursor/commands/` + `.cursor/skills/roast/` so teammates get `/roast` without a global install.
+
+**Global-only:** `npx roastit install --tools cursor --yes`
+
+### Slash commands
+
+| Slash | Use when |
+|-------|----------|
+| **`/roast`** | Roast + fix (daily default) |
+| **`/roast-only`** | Verdict only |
+| **`/roast-idea`** | Critique a plan before code |
+| **`/roast-what`** | Explain the diff or a roast in plain English |
+| **`/roast-learn`** | Learn this project's patterns & antipatterns |
+| **`/roast-install`** | Reinstall the skill pack |
+| `/roast-full` | Optional — same skill loaded directly |
+
+## What it does
+
+- **Installs** a roast skill + slash commands to Cursor, Claude Code, or Codex
+- **Gathers context** (`roastit context`) — stack, scripts, conventions, CI
+- **Surfaces diff signals** (`roastit diff`) — changed files, test/doc hints, suggested scope
+- **Enforces evidence** — findings cite `file:line`, diff, or test output; chat-only output
+
+[Full documentation →](docs/README.md)
+
+## CLI commands
 
 | Command | Description |
 |---------|-------------|
+| `roast bootstrap` | First-time setup — global + project `.cursor/` |
 | `roast init` | Detect repo + IDE, write `.roast/config.json` |
-| `roast install` | Deploy skill + rules to Cursor / Claude / Codex |
+| `roast install` | Deploy skill + commands + rules |
 | `roast update` | Update installed skill |
 | `roast status` | Version + update check |
-| `roast uninstall` | Remove skill from IDEs |
+| `roast uninstall` | Remove from IDEs |
 | `roast context` | Phase 0 INIT — stack, scripts, rules, CI |
 | `roast diff` | Git diff signals for roast input |
 
-## Modes (agent skill)
+See [docs/commands.md](docs/commands.md) for flags and examples.
 
-| Mode | Trigger examples | Edits |
-|------|------------------|-------|
-| **roast-only** | "roast independently", `/roast-only` | No |
-| **roast-and-fix** | "roast and fix", `/roast` | Yes |
-| **roast-idea** | "roast this idea before implementing" | No |
+## Roast modes
+
+| Mode | Trigger | Edits |
+|------|---------|-------|
+| **roast-only** | `/roast-only`, "roast independently" | No |
+| **roast-and-fix** | `/roast`, "roast and fix" | Yes |
+| **roast-idea** | `/roast-idea`, "roast this idea" | No |
+| **roast-what** | `/roast-what`, "eli5", "what changed" | No |
+| **roast-learn** | `/roast-learn`, "learn this repo" | `roast-patterns.mdc` only |
 | **roast-then-build** | "roast then implement" | After agreement |
 | **roast-then-apply** | "preview, roast fix, apply" | After approval |
 | **roast-no-patch** | "don't patch", "senior architect" | Structural only |
 
-Scoped roast-only: `/roast-ui`, `/roast-api`
+Details: [docs/modes.md](docs/modes.md)
 
-## Workflow
+## Phase 0 INIT
 
+Before any roast, gather repo context:
+
+```bash
+npx roastit context
+npx roastit diff --base auto
 ```
-INIT → SCOPE → READ → EVIDENCE → TRIAGE → VERDICT → [PATH → ACT → VERIFY]
-```
 
-1. Run `npx roast context` and `npx roast diff --base auto`
-2. Agent loads `roast` skill and follows evidence format
-3. Output stays in chat — no unsolicited roast markdown files
+The agent reads conventions (AGENTS.md, `.cursor/rules`, CI) and scopes the critique. See [docs/init-phase.md](docs/init-phase.md).
 
 ## Examples
 
@@ -62,54 +88,54 @@ INIT → SCOPE → READ → EVIDENCE → TRIAGE → VERDICT → [PATH → ACT �
 ```
 User: /roast-only — review src/middleware/auth.ts
 
-Agent: [runs roast context]
-## 🔥 Roast: auth middleware
+## Roast: auth middleware
+**Context:** node — npm · src/middleware/auth.ts · vitest · AGENTS.md
 ### The real problem
 Optional auth treats missing tokens as guest access on routes that require enforcement.
-#### 🔴 Critical
-- Missing enforcement on DELETE — `src/middleware/auth.ts:41` — ...
+### Findings
+- 🔴 Missing enforcement on DELETE — `src/middleware/auth.ts:41` — ...
 ```
 
 ### API handler
 
 ```
-User: roast and fix the payment handler
+User: /roast — review the payment handler
 
-Agent: [INIT → findings → minimal fix → npm test]
+Agent: INIT → findings → minimal fix → npm test
 ```
 
-### React component
+### Dashboard component
 
 ```
-User: /roast-idea — I want to add infinite scroll to Dashboard
+User: /roast-idea — add infinite scroll to Dashboard
 
-Agent: [critiques plan before any code — edge cases, a11y, test strategy]
+Agent: critiques plan before code — edge cases, a11y, test strategy
 ```
 
-## IDE paths
+More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
-| IDE | Skill | Rules |
-|-----|-------|-------|
-| Cursor | `~/.cursor/skills/roast/` | `~/.cursor/rules/roast-commands.mdc` |
-| Claude Code | `~/.claude/skills/roast/` | block in `~/.claude/CLAUDE.md` |
-| Codex | `~/.codex/skills/roast/` | block in `~/.codex/AGENTS.md` |
+## Install paths
 
-## context / diff
+| IDE | Skill | Commands | Rule |
+|-----|-------|----------|------|
+| Cursor | `~/.cursor/skills/roast/` | `~/.cursor/commands/roast*.md` | `~/.cursor/rules/roast.mdc` |
+| Claude | `~/.claude/skills/roast/` | — | block in `CLAUDE.md` |
+| Codex | `~/.codex/skills/roast/` | — | block in `AGENTS.md` |
 
-```bash
-# Markdown (default)
-npx roast context --path .
-npx roast context --target 'src/**' --format json
-npx roast diff --base auto
-npx roast diff --since 1d
-```
+## Package name
+
+**`roastit`** on npm. Bins: **`roastit`** and **`roast`**.
 
 ## What roast is not
 
-- Not comedy or GitHub profile satire
+- Not comedy or profile satire
 - Not an LLM API wrapper
 - Not a report generator that writes files to your repo
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Security: [SECURITY.md](SECURITY.md).
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

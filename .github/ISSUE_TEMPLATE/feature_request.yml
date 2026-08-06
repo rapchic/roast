@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest an improvement to the CLI or skill pack
+title: "[feat]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What workflow gap does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: CLI only (context/diff/install)
+        - label: Skill / agent behavior
+        - label: Documentation
+        - label: Must remain repo-agnostic (no domain logic)

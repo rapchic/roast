@@ -1,16 +1,41 @@
 import { existsSync } from 'node:fs';
 import { cp, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
-import { homedir } from 'node:os';
+import { homedir as nodeHomedir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { createInterface } from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
+/** Home directory — override with ROAST_HOME for tests. */
+export function getHomedir() {
+  return process.env.ROAST_HOME || nodeHomedir();
+}
+
 export const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const SKILL_SRC = join(REPO_ROOT, 'skills', 'roast');
-export const RULES_SRC = join(REPO_ROOT, 'rules', 'roast-commands.mdc');
+export const RULES_SRC = join(REPO_ROOT, 'rules', 'roast.mdc');
+export const COMMANDS_SRC = join(REPO_ROOT, 'commands', 'cursor');
+export const CURSOR_COMMAND_FILES = [
+  'roast.md',
+  'roast-only.md',
+  'roast-idea.md',
+  'roast-what.md',
+  'roast-learn.md',
+  'roast-install.md',
+];
 export const SCRIPTS_SRC = join(REPO_ROOT, 'scripts');
-export const ROAST_DIR = join(homedir(), '.roast');
-export const INSTALL_JSON = join(ROAST_DIR, '.meta.json');
+/** Scripts copied to ~/.roast/scripts on install (not lint/smoke/dev tooling). */
+export const RUNTIME_SCRIPTS = ['gather-context.js'];
+
+export function roastDir() {
+  return join(getHomedir(), '.roast');
+}
+
+export function installJsonPath() {
+  return join(roastDir(), '.meta.json');
+}
+
+export const ROAST_DIR = roastDir();
+export const INSTALL_JSON = installJsonPath();
 export const SKILL_NAME = 'roast';
 
 const _pkg = JSON.parse(await readFile(join(REPO_ROOT, 'package.json'), 'utf8'));
@@ -30,17 +55,32 @@ export async function copyRules(targetPath) {
   await cp(RULES_SRC, targetPath);
 }
 
+export async function copyCursorCommands(targetDir) {
+  await mkdir(targetDir, { recursive: true });
+  for (const file of CURSOR_COMMAND_FILES) {
+    await cp(join(COMMANDS_SRC, file), join(targetDir, file));
+  }
+}
+
 export async function copyScripts() {
-  const dest = join(ROAST_DIR, 'scripts');
+  const dest = join(roastDir(), 'scripts');
   await mkdir(dest, { recursive: true });
-  await cp(SCRIPTS_SRC, dest, { recursive: true });
+  for (const file of RUNTIME_SCRIPTS) {
+    await cp(join(SCRIPTS_SRC, file), join(dest, file));
+  }
 }
 
 export async function writeInstallState({ client, method = 'npx' }) {
-  await mkdir(dirname(INSTALL_JSON), { recursive: true });
-  const existing = existsSync(INSTALL_JSON)
-    ? JSON.parse(await readFile(INSTALL_JSON, 'utf8'))
-    : {};
+  const installJson = installJsonPath();
+  await mkdir(dirname(installJson), { recursive: true });
+  let existing = {};
+  if (existsSync(installJson)) {
+    try {
+      existing = JSON.parse(await readFile(installJson, 'utf8'));
+    } catch {
+      existing = {};
+    }
+  }
   const existingClients = Array.isArray(existing.clients)
     ? existing.clients
     : existing.client
@@ -57,16 +97,17 @@ export async function writeInstallState({ client, method = 'npx' }) {
     clients,
     installedAt: existing.installedAt ?? new Date().toISOString(),
   };
-  const tmp = INSTALL_JSON + '.tmp';
+  const tmp = installJson + '.tmp';
   await writeFile(tmp, JSON.stringify(state, null, 2) + '\n', 'utf8');
-  await rename(tmp, INSTALL_JSON);
+  await rename(tmp, installJson);
   return state;
 }
 
 export async function readInstallState() {
-  if (!existsSync(INSTALL_JSON)) return null;
+  const installJson = installJsonPath();
+  if (!existsSync(installJson)) return null;
   try {
-    return JSON.parse(await readFile(INSTALL_JSON, 'utf8'));
+    return JSON.parse(await readFile(installJson, 'utf8'));
   } catch {
     return null;
   }
@@ -87,10 +128,25 @@ export async function prompt(question, { yes = false } = {}) {
   });
 }
 
+/** Confirm a destructive action. Non-TTY requires --yes (returns false otherwise). */
+export async function confirmYes(question, { yes = false } = {}) {
+  if (yes) return true;
+  if (process.env.ROAST_TEST_PROMPT_ANSWER !== undefined) {
+    return process.env.ROAST_TEST_PROMPT_ANSWER.toLowerCase() === 'y';
+  }
+  if (!process.stdin.isTTY) {
+    console.error('Non-interactive shell detected. Re-run with --yes to confirm.');
+    return false;
+  }
+  const answer = await prompt(question, { yes: false });
+  return answer.toLowerCase() === 'y';
+}
+
 export async function detectClients() {
+  const home = getHomedir();
   const clients = [];
-  if (existsSync(join(homedir(), '.cursor'))) clients.push('cursor');
-  if (existsSync(join(homedir(), '.claude'))) clients.push('claude');
-  if (existsSync(join(homedir(), '.codex'))) clients.push('codex');
+  if (existsSync(join(home, '.cursor'))) clients.push('cursor');
+  if (existsSync(join(home, '.claude'))) clients.push('claude');
+  if (existsSync(join(home, '.codex'))) clients.push('codex');
   return clients;
 }

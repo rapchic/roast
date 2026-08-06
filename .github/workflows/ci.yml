@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run smoke
+      - run: npm run pack:check
+
+  smoke-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - run: npm ci
+      - run: npm pack
+      - run: npm test
+
+      - name: Install from tarball to temp HOME
+        run: |
+          PKG=$(ls roastit-*.tgz)
+          npm install -g "./$PKG"
+          TEMP_HOME=$(mktemp -d)
+          export HOME="$TEMP_HOME"
+          roastit install --tools cursor --yes
+          test -f "$HOME/.cursor/skills/roast/SKILL.md"
+          test -f "$HOME/.cursor/commands/roast-install.md"
+          test -f "$HOME/.cursor/commands/roast-what.md"
+          test -f "$HOME/.cursor/commands/roast-learn.md"
+          test -f "$HOME/.cursor/rules/roast.mdc"
+          grep -q roastit "$HOME/.cursor/commands/roast-install.md"
+          grep -q roast-full "$HOME/.cursor/skills/roast/SKILL.md"
+          echo "Tarball smoke install OK"

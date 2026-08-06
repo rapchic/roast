@@ -1,0 +1,75 @@
+name: CodeRabbit
+
+# PR reviews: install the CodeRabbit GitHub App (no API key in PR context).
+# CLI (this workflow): trusted events only so CODERABBIT_API_KEY is never
+# exposed to untrusted pull_request / fork code.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coderabbit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cli-review:
+    name: CodeRabbit CLI (prerelease)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install CodeRabbit CLI
+        run: |
+          set -euo pipefail
+          install_script="${RUNNER_TEMP}/coderabbit-install.sh"
+          curl -fsSL --proto '=https' --tlsv1.2 \
+            "https://cli.coderabbit.ai/install.sh" \
+            -o "${install_script}"
+          if ! grep -Eq 'coderabbit|CodeRabbit' "${install_script}"; then
+            echo "::error::Unexpected CodeRabbit install script content"
+            exit 1
+          fi
+          if sed '/^[[:space:]]*#/d' "${install_script}" \
+            | grep -Eqi 'curl .*\|\s*(ba)?sh|wget .*\|\s*(ba)?sh'; then
+            echo "::error::Install script nests a remote pipe-to-shell; refusing"
+            exit 1
+          fi
+          bash "${install_script}"
+          command -v coderabbit >/dev/null
+          rm -f "${install_script}"
+
+      - name: Run CodeRabbit CLI review
+        env:
+          CODERABBIT_API_KEY: ${{ secrets.CODERABBIT_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CODERABBIT_API_KEY:-}" ]; then
+            echo "::warning::CODERABBIT_API_KEY is not set — skipping CLI review."
+            echo "Add an Agentic API key: https://app.coderabbit.ai → API Keys"
+            echo "Repo secret name: CODERABBIT_API_KEY"
+            echo "Until then, rely on the CodeRabbit GitHub App for PR reviews."
+            exit 0
+          fi
+
+          coderabbit auth login --api-key "$CODERABBIT_API_KEY"
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BEFORE="${{ github.event.before }}"
+            ZERO="0000000000000000000000000000000000000000"
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "$ZERO" ]; then
+              coderabbit review --base=main --plain
+            else
+              coderabbit review --base-commit="$BEFORE" --plain
+            fi
+          else
+            coderabbit review --base=main --plain
+          fi

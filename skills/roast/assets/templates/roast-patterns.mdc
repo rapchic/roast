@@ -1,0 +1,23 @@
+---
+description: Project patterns & antipatterns for roast (written by /roast-learn). Prefer these over generic advice.
+alwaysApply: false
+globs:
+---
+
+# Project roast patterns
+
+> Generated/updated by `/roast-learn`. Agents: treat as project law for critiques. Cite evidence when claiming a violation.
+
+**Last learned:** (ISO date)
+
+## Patterns (prefer)
+
+- (example) Prefer X over Y — `path:line`
+
+## Antipatterns (avoid)
+
+- (example) Do not Z — `path:line` — why
+
+## Layout & stack notes
+
+- (short bullets from this repo only)

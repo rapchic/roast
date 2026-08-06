@@ -1,20 +1,31 @@
 {
-  "name": "roast",
+  "name": "roastit",
   "version": "0.1.0",
-  "description": "Evidence-based code roast CLI — install roast skill for AI coding agents",
+  "description": "Evidence-based code roast CLI — install roast skills for AI coding agents",
   "type": "module",
   "bin": {
-    "roast": "./installer/bin/cli.js"
+    "roast": "./installer/bin/cli.js",
+    "roastit": "./installer/bin/cli.js"
   },
   "files": [
-    "installer/bin/",
-    "installer/src/",
+    "installer/",
     "skills/",
     "rules/",
-    "scripts/"
+    "commands/",
+    "scripts/postinstall.js",
+    "scripts/gather-context.js",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "test": "node --test installer/tests/*.test.js"
+    "test": "node --test --test-concurrency=1 test/**/*.test.js",
+    "lint": "node scripts/lint.js",
+    "smoke": "node scripts/smoke-install.js",
+    "pack:check": "npm pack --dry-run",
+    "prepublishOnly": "npm test && npm run lint && npm run smoke && npm run pack:check",
+    "postinstall": "node scripts/postinstall.js",
+    "sync:project-cursor": "node installer/bin/cli.js install --tools cursor --project --yes --path .",
+    "dev:setup": "node scripts/dev-setup.js"
   },
   "dependencies": {
     "commander": "^12.1.0"
@@ -23,17 +34,27 @@
     "node": ">=18.0.0"
   },
   "keywords": [
-    "roast",
-    "code-review",
-    "ai-agents",
+    "ai",
+    "agents",
     "cursor",
     "claude",
     "codex",
-    "cli"
+    "code-review",
+    "skills",
+    "cli",
+    "roast",
+    "roastit"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/dchatterjee/roast.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dchatterjee/roast/issues"
+  },
+  "homepage": "https://github.com/dchatterjee/roast#readme",
+  "publishConfig": {
+    "access": "public"
   }
 }

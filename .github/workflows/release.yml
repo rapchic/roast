@@ -1,0 +1,112 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  coderabbit-prerelease:
+    name: CodeRabbit prerelease
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install CodeRabbit CLI
+        run: |
+          set -euo pipefail
+          install_script="${RUNNER_TEMP}/coderabbit-install.sh"
+          curl -fsSL --proto '=https' --tlsv1.2 \
+            "https://cli.coderabbit.ai/install.sh" \
+            -o "${install_script}"
+          if ! grep -Eq 'coderabbit|CodeRabbit' "${install_script}"; then
+            echo "::error::Unexpected CodeRabbit install script content"
+            exit 1
+          fi
+          if sed '/^[[:space:]]*#/d' "${install_script}" \
+            | grep -Eqi 'curl .*\|\s*(ba)?sh|wget .*\|\s*(ba)?sh'; then
+            echo "::error::Install script nests a remote pipe-to-shell; refusing"
+            exit 1
+          fi
+          bash "${install_script}"
+          command -v coderabbit >/dev/null
+          rm -f "${install_script}"
+
+      - name: Prerelease CodeRabbit review
+        env:
+          CODERABBIT_API_KEY: ${{ secrets.CODERABBIT_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CODERABBIT_API_KEY:-}" ]; then
+            echo "::warning::CODERABBIT_API_KEY not set — skipping prerelease CodeRabbit gate."
+            echo "Set the Agentic API key secret before relying on this check."
+            exit 0
+          fi
+          coderabbit auth login --api-key "$CODERABBIT_API_KEY"
+          # Review commits on this tag since previous tag (or main if first).
+          PREV="$(git describe --tags --abbrev=0 --match 'v*.*.*' HEAD^ 2>/dev/null || true)"
+          if [ -n "$PREV" ]; then
+            echo "Reviewing since $PREV"
+            coderabbit review --base-commit="$PREV" --plain
+          else
+            echo "No previous tag — reviewing against main"
+            coderabbit review --base=main --plain
+          fi
+
+  publish:
+    needs: [coderabbit-prerelease]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run smoke
+
+      - name: Pack tarball
+        run: npm pack
+
+      - name: Install from tarball + smoke (gate before publish)
+        run: |
+          PKG=$(ls roastit-*.tgz)
+          npm install -g "./$PKG"
+          TEMP_HOME=$(mktemp -d)
+          export HOME="$TEMP_HOME"
+          roastit install --tools cursor --yes
+          test -f "$HOME/.cursor/skills/roast/SKILL.md"
+          test -f "$HOME/.cursor/commands/roast-install.md"
+          test -f "$HOME/.cursor/commands/roast-what.md"
+          test -f "$HOME/.cursor/commands/roast-learn.md"
+          test -f "$HOME/.cursor/rules/roast.mdc"
+          grep -q roastit "$HOME/.cursor/commands/roast-install.md"
+          grep -q roast-full "$HOME/.cursor/skills/roast/SKILL.md"
+          echo "Tarball install gate OK"
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            roastit-*.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,10 +2,11 @@ import { detectClients } from './utils.js';
 import { install as cursorInstall } from './clients/cursor.js';
 import { install as claudeInstall } from './clients/claude.js';
 import { install as codexInstall } from './clients/codex.js';
+import { installProject } from './project.js';
 
 const HANDLERS = { cursor: cursorInstall, claude: claudeInstall, codex: codexInstall };
 
-export async function install({ tools, yes = false } = {}) {
+export async function install({ tools, yes = false, project = false, path: projectRoot = process.cwd() } = {}) {
   let clients;
 
   if (tools) {
@@ -27,5 +28,10 @@ export async function install({ tools, yes = false } = {}) {
 
   for (const client of clients) {
     await HANDLERS[client]({ yes });
+  }
+
+  if (project) {
+    console.log('');
+    await installProject({ path: projectRoot, yes });
   }
 }

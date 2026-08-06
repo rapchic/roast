@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+
+reviews:
+  profile: chill
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  changed_files_summary: true
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+  path_filters:
+    - "!package-lock.json"
+    - "!**/*.tgz"
+    - "!**/node_modules/**"
+    - "!.cursor/**"
+  path_instructions:
+    - path: "installer/**"
+      instructions: |
+        Node ESM CLI (Commander). Prefer minimal diffs.
+        Never hardcode user-specific paths. Respect ROAST_HOME for tests.
+        Do not add LLM API calls to the CLI. Keep secrets out of logs.
+        update fetches from npm only — no local-clone refresh path in user-facing help.
+    - path: "skills/roast/**"
+      instructions: |
+        Evidence-based roast skill. Generic examples only (auth, API, UI).
+        Skill slash name is roast-full; prefer documenting slash commands.
+        Chat-only roast output — no unsolicited *_ROAST.md files.
+        Scope budget 30 files. roast-learn may only write .cursor/rules/roast-patterns.mdc.
+    - path: "commands/cursor/**"
+      instructions: |
+        Thin Cursor slash launchers. Must point at roast-full skill paths.
+        Missing skill → /roast-install. /roast-install never roasts.
+        Do not ship workspace-only tools (e.g. roast-no) here.
+    - path: "rules/**"
+      instructions: |
+        Keep slash map in sync with shipped commands. No contributor/npm link flows.
+    - path: "docs/**"
+      instructions: |
+        README stays user-facing (npx roastit). Clone/dev setup belongs in CONTRIBUTING.md.
+    - path: ".github/workflows/**"
+      instructions: |
+        Never expose CODERABBIT_API_KEY on untrusted pull_request from forks.
+        CLI review only on push to main, workflow_dispatch, or release tags.
+  pre_merge_checks:
+    title:
+      mode: warning
+      requirements: "Concise, descriptive title (ideally under 72 characters)."
+    description:
+      mode: warning
+
+chat:
+  auto_reply: true
