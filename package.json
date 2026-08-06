@@ -48,12 +48,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dchatterjee/roast.git"
+    "url": "https://github.com/rapchic/roast.git"
   },
   "bugs": {
-    "url": "https://github.com/dchatterjee/roast/issues"
+    "url": "https://github.com/rapchic/roast/issues"
   },
-  "homepage": "https://github.com/dchatterjee/roast#readme",
+  "homepage": "https://github.com/rapchic/roast#readme",
   "publishConfig": {
     "access": "public"
   }

@@ -32,4 +32,4 @@ First npm release of **`roastit`** (0.x = API may still change).
 - npm package name **`roastit`** (unscoped `roast` taken); bins `roastit` + `roast`
 - Skill frontmatter `name: roast-full` to avoid duplicate `/roast` in Cursor picker
 
-[0.1.0]: https://github.com/dchatterjee/roast/releases/tag/v0.1.0
+[0.1.0]: https://github.com/rapchic/roast/releases/tag/v0.1.0

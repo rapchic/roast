@@ -6,7 +6,7 @@ End users: see [README.md](README.md) (`npx roastit@latest …`).
 ## One-time setup
 
 ```bash
-git clone https://github.com/dchatterjee/roast.git
+git clone https://github.com/rapchic/roast.git
 cd roast
 npm install
 npm link                 # puts `roastit` / `roast` on your PATH from this checkout

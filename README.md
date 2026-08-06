@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/roastit.svg)](https://www.npmjs.com/package/roastit)
 [![license: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
-[![CI](https://github.com/dchatterjee/roast/actions/workflows/ci.yml/badge.svg)](https://github.com/dchatterjee/roast/actions/workflows/ci.yml)
+[![CI](https://github.com/rapchic/roast/actions/workflows/ci.yml/badge.svg)](https://github.com/rapchic/roast/actions/workflows/ci.yml)
 
 **Evidence-based code roast for AI coding agents** — install once, roast any repo with citations. No LLM in the CLI; your agent runs the roast.
 
