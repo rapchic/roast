@@ -83,7 +83,7 @@ jobs:
 
       - name: Install from tarball + smoke (gate before publish)
         run: |
-          PKG=$(ls roastit-*.tgz)
+          PKG=$(ls rapchic-roast-*.tgz)
           npm install -g "./$PKG"
           TEMP_HOME=$(mktemp -d)
           export HOME="$TEMP_HOME"
@@ -93,7 +93,7 @@ jobs:
           test -f "$HOME/.cursor/commands/roast-what.md"
           test -f "$HOME/.cursor/commands/roast-learn.md"
           test -f "$HOME/.cursor/rules/roast.mdc"
-          grep -q roastit "$HOME/.cursor/commands/roast-install.md"
+          grep -q '@rapchic/roast' "$HOME/.cursor/commands/roast-install.md"
           grep -q roast-full "$HOME/.cursor/skills/roast/SKILL.md"
           echo "Tarball install gate OK"
 
@@ -107,6 +107,6 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            roastit-*.tgz
+            rapchic-roast-*.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

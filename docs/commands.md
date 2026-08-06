@@ -18,7 +18,7 @@ CLI subcommands and Cursor slash commands in one place.
 
 Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontmatter `name: roast-full`) — same product, not a second tool.
 
-**Current version:** see `package.json` / `roastit --version` (0.x until 1.0 stability cut).
+**Current version:** see `package.json` / `roast --version` (0.x until 1.0 stability cut).
 
 `/roast` checks for `~/.cursor/skills/roast/SKILL.md` (or project `.cursor/…`). If missing, it directs you to `/roast-install`.
 
@@ -26,16 +26,16 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 
 | Intent | Cursor slash | Terminal |
 |--------|--------------|----------|
-| Install / update | `/roast-install` | `npx roastit@latest install` |
+| Install / update | `/roast-install` | `npx @rapchic/roast@latest install` |
 | Roast + fix | `/roast` | (agent chat only) |
 | Roast only | `/roast-only` | (agent chat only) |
 | Plain English | `/roast-what` | (agent chat only) |
 | Learn patterns | `/roast-learn` | (agent chat only) |
-| Repo context JSON | — | `npx roastit context --format json` |
-| Git diff signals | — | `npx roastit diff --base auto` |
-| Short AGENTS.md (opt-in) | — | `npx roastit init --agents` |
-| Check install | — | `npx roastit status` |
-| Remove install | — | `npx roastit uninstall --tools cursor --yes` |
+| Repo context JSON | — | `npx @rapchic/roast context --format json` |
+| Git diff signals | — | `npx @rapchic/roast diff --base auto` |
+| Short AGENTS.md (opt-in) | — | `npx @rapchic/roast init --agents` |
+| Check install | — | `npx @rapchic/roast status` |
+| Remove install | — | `npx @rapchic/roast uninstall --tools cursor --yes` |
 
 ## CLI reference
 
@@ -44,9 +44,9 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 Install skill + slash commands: **global** IDE dirs **and** project `.cursor/` (default).
 
 ```bash
-npx roastit@latest install
-npx roastit install --no-project   # global only
-npx roastit install --tools cursor,claude,codex
+npx @rapchic/roast@latest install
+npx @rapchic/roast install --no-project   # global only
+npx @rapchic/roast install --tools cursor,claude,codex
 ```
 
 | Flag | Description |
@@ -69,10 +69,10 @@ npx roastit install --tools cursor,claude,codex
 Detect repo and IDE; write `.roast/config.json`. Or write a short `AGENTS.md` with `--agents`.
 
 ```bash
-npx roastit init
-npx roastit init --path /path/to/repo --yes
-npx roastit init --agents          # opt-in short AGENTS.md (never during roast)
-npx roastit init --agents --yes    # overwrite existing AGENTS.md
+npx @rapchic/roast init
+npx @rapchic/roast init --path /path/to/repo --yes
+npx @rapchic/roast init --agents          # opt-in short AGENTS.md (never during roast)
+npx @rapchic/roast init --agents --yes    # overwrite existing AGENTS.md
 ```
 
 | Flag | Description |
@@ -84,10 +84,10 @@ npx roastit init --agents --yes    # overwrite existing AGENTS.md
 
 ### `roast update`
 
-Fetches latest `roastit` from npm (`npx roastit@<ver> install …`), then deploys skill files.
+Fetches latest `@rapchic/roast` from npm (`npx @rapchic/roast@<ver> install …`), then deploys skill files.
 
 ```bash
-npx roastit update
+npx @rapchic/roast update
 ```
 
 Editing this git repo? Don’t use `update` for local changes — run `roastit install` (or `npm run sync:project-cursor`). See `CONTRIBUTING.md`.
@@ -97,7 +97,7 @@ Editing this git repo? Don’t use `update` for local changes — run `roastit i
 Show installed version and update availability.
 
 ```bash
-npx roastit status
+npx @rapchic/roast status
 ```
 
 ### `roast uninstall`
@@ -105,7 +105,7 @@ npx roastit status
 Remove skill, commands, and rules.
 
 ```bash
-npx roastit uninstall --tools cursor --yes
+npx @rapchic/roast uninstall --tools cursor --yes
 ```
 
 ### `roast context`
@@ -113,9 +113,9 @@ npx roastit uninstall --tools cursor --yes
 Phase 0 INIT data — no LLM.
 
 ```bash
-npx roastit context
-npx roastit context --path . --format json
-npx roastit context --target 'src/auth/**'
+npx @rapchic/roast context
+npx @rapchic/roast context --path . --format json
+npx @rapchic/roast context --target 'src/auth/**'
 ```
 
 | Flag | Description |
@@ -131,10 +131,10 @@ Detects: Node, Python, Go, Rust, Java manifests; scripts; AGENTS.md / rules; CI 
 Git diff signals for roast scope — no LLM. **Includes working tree + untracked** by default.
 
 ```bash
-npx roastit diff --base auto
-npx roastit diff --base auto --format json
-npx roastit diff --committed-only --format json
-npx roastit diff --since 1d --format json
+npx @rapchic/roast diff --base auto
+npx @rapchic/roast diff --base auto --format json
+npx @rapchic/roast diff --committed-only --format json
+npx @rapchic/roast diff --since 1d --format json
 ```
 
 | Flag | Description |
@@ -150,7 +150,7 @@ Base detection: `origin/HEAD` → `origin/main` → `origin/master`. Scope budge
 ## Global install
 
 ```bash
-npm install -g roastit
+npm install -g @rapchic/roast
 roast install
 ```
 

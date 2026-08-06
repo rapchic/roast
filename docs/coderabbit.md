@@ -19,7 +19,7 @@ Config: [`.coderabbit.yaml`](../.coderabbit.yaml) at repo root.
 3. Add repo secret **`CODERABBIT_API_KEY`** (Settings → Secrets and variables → Actions).
 4. Open a PR — App reviews automatically. Push to `main` or **Actions → CodeRabbit → Run workflow** for CLI.
 
-Without the secret, CLI jobs **skip with a warning** (publish still proceeds). Set the key to enforce the prerelease review.
+Without the secret, CLI jobs **skip with a warning** and exit 0 (publish still proceeds). That is not a roastit bug — the workflow is soft-gated on purpose for first releases. Set the key when you want the CLI review to actually run; until then rely on the GitHub App for PRs.
 
 ## Security
 

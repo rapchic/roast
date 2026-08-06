@@ -32,7 +32,7 @@ body:
     id: command
     attributes:
       label: Command run
-      placeholder: "npx roastit install --tools cursor --yes"
+      placeholder: "npx @rapchic/roast install --tools cursor --yes"
     validations:
       required: true
   - type: textarea

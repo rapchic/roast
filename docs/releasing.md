@@ -35,9 +35,25 @@ Workflow `.github/workflows/release.yml`:
 2. `npm ci` · test · smoke · **pack**
 3. Install from tarball (smoke)
 4. `npm publish`
-5. GitHub Release with `roastit-*.tgz`
+5. GitHub Release with `rapchic-roast-*.tgz`
 
 Requires secrets: `NPM_TOKEN`, and optionally `CODERABBIT_API_KEY` (see [coderabbit.md](coderabbit.md)).
+
+## Pre-publish failure inventory
+
+Collect and clear these before `npm publish` / tagging. Fix in **roastit** when it's package code; fix in **npm / GitHub / CodeRabbit** when it's secrets or external CLI setup.
+
+| Symptom | Owner | Status / fix |
+|---------|-------|----------------|
+| CI: `Could not find 'test/**/*.test.js'` on Linux | **roastit** | Fixed — `scripts/run-tests.js` expands globs |
+| npm notice: `bin[roast]` / `bin[roastit]` “invalid and removed” | **roastit** | Fixed — `bin` paths without `./` (`installer/bin/cli.js`). Warning was npm stripping `./`, not deleting bins |
+| `npm publish` **403**: “Two-factor authentication or granular access token with **bypass 2fa** enabled is required” | **npm token** | Create a classic **Automation** token (or granular with **Bypass 2FA** + publish). Re-run local auth setup; refresh GitHub `NPM_TOKEN` |
+| `npm whoami` works but `npm publish` / `npm profile get` still **403** | **npm token** | Same — identity token ≠ publish-capable token |
+| CodeRabbit Actions **green** but CLI review skipped | **CodeRabbit secret** | Optional for first publish. Set `CODERABBIT_API_KEY` (Agentic) — see [coderabbit.md](coderabbit.md). Soft-skip is intentional so release is not blocked |
+| Tag `v0.1.0` Release workflow failed earlier | **roastit** + re-tag | Was Linux test glob; fixed on `main`. Move/retag after a green publish if needed |
+
+**
+Local auth helper (gitignored): `./scripts/npm-auth-setup.sh` — paste an Automation token; it writes `~/.npmrc` and sets repo `NPM_TOKEN`.
 
 ## Manual release
 
@@ -51,17 +67,17 @@ npm publish --access public
 Verify:
 
 ```bash
-npm view roastit version
-npx roastit@latest status
+npm view @rapchic/roast version
+npx @rapchic/roast@latest status
 ```
 
 ## GitHub checklist
 
 - [ ] Topics: `ai-agents`, `cursor`, `cli`, `code-review`, `skills`
-- [ ] `NPM_TOKEN` secret
-- [ ] CodeRabbit GitHub App installed + `CODERABBIT_API_KEY` (Agentic) for CLI/prerelease — [coderabbit.md](coderabbit.md)
+- [ ] `NPM_TOKEN` secret — **Automation** (or granular + bypass 2FA), not a read-only / Publish-without-bypass token
+- [ ] CodeRabbit GitHub App installed + optional `CODERABBIT_API_KEY` (Agentic) for CLI/prerelease — [coderabbit.md](coderabbit.md)
 - [ ] Link npm package after first publish
 
 ## Package name
 
-Published as **`roastit`**. Unscoped `roast` is a different package.
+Published as **`@rapchic/roast`**. Unscoped `roast` / `roastit` are different packages. Bins: `roast` + `roastit`.

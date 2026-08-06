@@ -47,7 +47,7 @@ jobs:
 
       - name: Install from tarball to temp HOME
         run: |
-          PKG=$(ls roastit-*.tgz)
+          PKG=$(ls rapchic-roast-*.tgz)
           npm install -g "./$PKG"
           TEMP_HOME=$(mktemp -d)
           export HOME="$TEMP_HOME"
@@ -57,6 +57,6 @@ jobs:
           test -f "$HOME/.cursor/commands/roast-what.md"
           test -f "$HOME/.cursor/commands/roast-learn.md"
           test -f "$HOME/.cursor/rules/roast.mdc"
-          grep -q roastit "$HOME/.cursor/commands/roast-install.md"
+          grep -q '@rapchic/roast' "$HOME/.cursor/commands/roast-install.md"
           grep -q roast-full "$HOME/.cursor/skills/roast/SKILL.md"
           echo "Tarball smoke install OK"

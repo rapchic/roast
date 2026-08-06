@@ -11,7 +11,7 @@ test('gatherContext detects node stack in roast repo', async () => {
   const out = await gatherContext({ path: REPO_ROOT, format: 'json' });
   const ctx = JSON.parse(out);
   assert.equal(ctx.stack.type, 'node');
-  assert.equal(ctx.stack.name, 'roastit');
+  assert.equal(ctx.stack.name, '@rapchic/roast');
   assert.ok(ctx.scripts.test);
 });
 

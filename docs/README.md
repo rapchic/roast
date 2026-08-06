@@ -6,8 +6,8 @@ Evidence-based code roast — install, slash map, CLI, and workflow reference.
 
 | Thing | Name | Role |
 |-------|------|------|
-| **npm package** | `roastit` | What you install (`npx roastit`, `npm i -g roastit`) |
-| **CLI bins** | `roastit` and `roast` | Same binary after install |
+| **npm package** | `@rapchic/roast` | What you install (`npx @rapchic/roast`, `npm i -g @rapchic/roast`) |
+| **CLI bins** | `roast` and `roastit` | Same binary after install |
 | **Skill folder** | `skills/roast/` → `~/.cursor/skills/roast/` | Files on disk |
 | **Skill slash name** | `/roast-full` | Full playbook in Cursor’s slash menu |
 | **Commands** | `/roast`, `/roast-only`, `/roast-idea`, `/roast-what`, `/roast-learn`, `/roast-install` | Thin launchers — **prefer these** |

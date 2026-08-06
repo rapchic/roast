@@ -5,20 +5,20 @@ Roast without INIT produces vibes. Prefer **JSON** CLI output and bound READ sco
 ## What to run
 
 ```bash
-npx roastit context --path . --format json
-npx roastit diff --base auto --format json    # includes working tree + untracked
+npx @rapchic/roast context --path . --format json
+npx @rapchic/roast diff --base auto --format json    # includes working tree + untracked
 ```
 
 Committed history only:
 
 ```bash
-npx roastit diff --base auto --committed-only --format json
+npx @rapchic/roast diff --base auto --committed-only --format json
 ```
 
 Optional blast radius:
 
 ```bash
-npx roastit context --target 'src/auth/**' --format json
+npx @rapchic/roast context --target 'src/auth/**' --format json
 ```
 
 ## What `roast context` returns
@@ -44,8 +44,8 @@ npx roastit context --target 'src/auth/**' --format json
 Missing `AGENTS.md` is fine (🟡 optional). Roast **never** auto-creates it.
 
 ```bash
-npx roastit init --agents        # short template
-npx roastit init --agents --yes  # overwrite
+npx @rapchic/roast init --agents        # short template
+npx @rapchic/roast init --agents --yes  # overwrite
 ```
 
 ## INIT in roast output

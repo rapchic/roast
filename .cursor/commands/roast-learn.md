@@ -6,7 +6,7 @@ Read the **roast-full** skill (first path that exists): `~/.cursor/skills/roast/
 
 **Mode:** `roast-learn`
 
-If missing: run **`/roast-install`**, or `npx roastit@latest install` then restart Cursor — do not proceed with a vague “style guide.”
+If missing: run **`/roast-install`**, or `npx @rapchic/roast@latest install` then restart Cursor — do not proceed with a vague “style guide.”
 
 **Job:** learn **this workspace’s** real patterns and antipatterns from code + existing conventions — then persist them for future roasts.
 

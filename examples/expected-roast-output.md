@@ -74,4 +74,4 @@ Missing:
 
 - Prefer compact output
 - Scope ≤30 files from `roastit diff` unless user expands
-- Do not create `AGENTS.md` during roast — use `npx roastit init --agents` if the user wants it
+- Do not create `AGENTS.md` during roast — use `npx @rapchic/roast init --agents` if the user wants it

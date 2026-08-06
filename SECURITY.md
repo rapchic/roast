@@ -37,8 +37,8 @@ We aim to acknowledge reports within 5 business days.
 ## Safe usage
 
 - Review bundled skill and command files before installing in sensitive environments
-- Use `npm view roastit` / verify package checksum when installing from npm
-- Prefer pinned versions in CI: `npx roastit@0.1.0 install`
+- Use `npm view @rapchic/roast` / verify package checksum when installing from npm
+- Prefer pinned versions in CI: `npx @rapchic/roast@0.1.0 install`
 
 ## Supported versions
 

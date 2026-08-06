@@ -15,7 +15,7 @@ if (!isGlobal || skip) {
 }
 
 if (!existsSync(join(homedir(), '.cursor'))) {
-  console.log('roast: ~/.cursor not found — skip postinstall (run: npx roastit install)');
+  console.log('roast: ~/.cursor not found — skip postinstall (run: npx @rapchic/roast install)');
   process.exit(0);
 }
 

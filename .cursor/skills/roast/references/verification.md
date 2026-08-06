@@ -4,7 +4,7 @@ Run only in fix modes after ACT. Report honest pass/fail — do not claim succes
 
 ## Command selection
 
-Use scripts from Phase 0 INIT (`npx roastit context`):
+Use scripts from Phase 0 INIT (`npx @rapchic/roast context`):
 
 | Priority | Script | When |
 |----------|--------|------|

@@ -24,7 +24,7 @@ program
 
 program
   .command('bootstrap')
-  .description('Alias for install (global + project). Prefer: roastit install')
+  .description('Alias for install (global + project). Prefer: roast install')
   .option('--tools <clients>', 'Comma-separated: cursor, claude, codex (default: auto-detect)')
   .option('--path <dir>', 'Project root for .cursor/ files', process.cwd())
   .option('--no-project', 'Skip installing .cursor/ in current repo')
@@ -73,7 +73,7 @@ program
 
 program
   .command('update')
-  .description('Fetch latest roastit from npm and reinstall')
+  .description('Fetch latest @rapchic/roast from npm and reinstall')
   .option('--yes', 'Non-interactive — auto-apply updates')
   .action((opts) => update(opts));
 

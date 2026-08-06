@@ -27,7 +27,7 @@ Slash-style triggers (say in chat):
 - \`/roast-what\` — explain the diff or a roast in plain English
 - \`/roast-learn\` — learn this project's patterns & antipatterns
 
-Run \`npx roastit context\` and \`npx roastit diff\` in the repo for Phase 0 INIT data.
+Run \`npx @rapchic/roast context\` and \`npx @rapchic/roast diff\` in the repo for Phase 0 INIT data.
 ${ROAST_BLOCK_END}
 `;
 

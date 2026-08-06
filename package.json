@@ -1,11 +1,11 @@
 {
-  "name": "roastit",
-  "version": "0.1.0",
+  "name": "@rapchic/roast",
+  "version": "0.1.1",
   "description": "Evidence-based code roast CLI — install roast skills for AI coding agents",
   "type": "module",
   "bin": {
-    "roast": "./installer/bin/cli.js",
-    "roastit": "./installer/bin/cli.js"
+    "roast": "installer/bin/cli.js",
+    "roastit": "installer/bin/cli.js"
   },
   "files": [
     "installer/",
@@ -49,7 +49,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rapchic/roast.git"
+    "url": "git+https://github.com/rapchic/roast.git"
   },
   "bugs": {
     "url": "https://github.com/rapchic/roast/issues"

@@ -20,7 +20,7 @@ ${ROAST_BLOCK_START}
 
 Use the \`roast\` skill for evidence-based critiques. Every finding must cite \`path:line\`, git diff, or test output.
 
-Triggers: \`/roast\`, \`/roast-only\`, \`/roast-idea\`, \`/roast-what\`, \`/roast-learn\`. Run \`npx roastit context\` and \`npx roastit diff\` for INIT data.
+Triggers: \`/roast\`, \`/roast-only\`, \`/roast-idea\`, \`/roast-what\`, \`/roast-learn\`. Run \`npx @rapchic/roast context\` and \`npx @rapchic/roast diff\` for INIT data.
 ${ROAST_BLOCK_END}
 `;
 

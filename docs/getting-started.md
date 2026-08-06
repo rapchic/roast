@@ -21,7 +21,7 @@ If both `/roast` and `/roast-full` appear in the picker: pick **`/roast`** for d
 ### 1. First install
 
 ```bash
-npx roastit@latest install
+npx @rapchic/roast@latest install
 ```
 
 This installs:
@@ -31,9 +31,9 @@ This installs:
 
 | Situation | Command |
 |-----------|---------|
-| Default (global + this repo) | `npx roastit@latest install` |
-| Global only | `npx roastit install --no-project` |
-| Global npm | `npm install -g roastit` (postinstall deploys if `~/.cursor` exists) |
+| Default (global + this repo) | `npx @rapchic/roast@latest install` |
+| Global only | `npx @rapchic/roast install --no-project` |
+| Global npm | `npm install -g @rapchic/roast` (postinstall deploys if `~/.cursor` exists) |
 
 ### 2. Restart Cursor
 
@@ -50,13 +50,13 @@ Agent runs Phase 0 INIT → compact findings → minimal fixes → test/lint whe
 ### Reinstall
 
 In chat: **`/roast-install`**  
-Or terminal: `npx roastit install`
+Or terminal: `npx @rapchic/roast install`
 
 ## Claude Code / Codex
 
 ```bash
-npx roastit install --tools claude
-npx roastit install --tools codex
+npx @rapchic/roast install --tools claude
+npx @rapchic/roast install --tools codex
 ```
 
 Skills land under `~/.claude/skills/roast/` or `~/.codex/skills/roast/`. Say “roast and fix” or load the skill in chat.
@@ -64,13 +64,13 @@ Skills land under `~/.claude/skills/roast/` or `~/.codex/skills/roast/`. Say “
 ## Verify
 
 ```bash
-npx roastit status
+npx @rapchic/roast status
 ```
 
 ## First roast checklist
 
-1. `npx roastit context --format json`
-2. `npx roastit diff --base auto --format json`
+1. `npx @rapchic/roast context --format json`
+2. `npx @rapchic/roast diff --base auto --format json`
 3. `/roast` or `/roast-only`
 4. Expect **compact** output: `## Roast: …`, one **Context:** line, findings with evidence
 

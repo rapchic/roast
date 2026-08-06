@@ -41,7 +41,7 @@ Triggers via natural language or skill load — no slash command files.
 ## Auto-detect
 
 ```bash
-npx roastit install
+npx @rapchic/roast install
 ```
 
 Detects `~/.cursor`, `~/.claude`, `~/.codex` and installs to all found.
@@ -49,13 +49,13 @@ Detects `~/.cursor`, `~/.claude`, `~/.codex` and installs to all found.
 ## Explicit clients
 
 ```bash
-npx roastit install --tools cursor,claude --yes
+npx @rapchic/roast install --tools cursor,claude --yes
 ```
 
 ## Uninstall
 
 ```bash
-npx roastit uninstall --tools cursor --yes
+npx @rapchic/roast uninstall --tools cursor --yes
 ```
 
 Removes skill, commands, rules (Cursor), and hint blocks (Claude/Codex).

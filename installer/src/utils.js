@@ -40,6 +40,8 @@ export const SKILL_NAME = 'roast';
 
 const _pkg = JSON.parse(await readFile(join(REPO_ROOT, 'package.json'), 'utf8'));
 export const VERSION = _pkg.version;
+/** npm package name (scoped), e.g. @rapchic/roast */
+export const PACKAGE_NAME = _pkg.name;
 
 export async function copySkill(targetDir) {
   await mkdir(targetDir, { recursive: true });

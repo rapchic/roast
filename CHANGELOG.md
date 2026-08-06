@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-08-06
+
+### Changed
+
+- Package scope **`@rapchic/roast`** (aligned with GitHub `rapchic/roast`)
+
 ## [0.1.0] - 2026-08-06
 
-First npm release of **`roastit`** (0.x = API may still change).
+First npm release of **`@rapchic/roast`** (0.x = API may still change). Matches GitHub `rapchic/roast`.
 
 ### Added
 
@@ -19,10 +25,10 @@ First npm release of **`roastit`** (0.x = API may still change).
 - `/roast-learn` — learn project patterns & antipatterns → `.cursor/rules/roast-patterns.mdc`
 - Evidence-based roast skill (modes + subagents for over-budget scope)
 - `roast install` deploys global + project `.cursor/` by default (`--no-project` for global-only)
-- `roastit update` — fetch latest from npm and reinstall
-- `roastit diff` includes working tree + untracked; `--committed-only`; `--since`
+- `roast update` — fetch latest from npm and reinstall
+- `roast diff` includes working tree + untracked; `--committed-only`; `--since`
 - Scope budget (30 files) + compact roast output by default
-- `roastit init --agents` — opt-in short `AGENTS.md`
+- `roast init --agents` — opt-in short `AGENTS.md`
 - Contributor tooling: `npm run dev:setup`, workspace-only `/roast-no` (not shipped)
 - Docs, CI, release workflow, smoke tests, LICENSE
 - CodeRabbit: `.coderabbit.yaml` + CLI workflow on `main` + prerelease gate before npm publish
@@ -31,7 +37,8 @@ First npm release of **`roastit`** (0.x = API may still change).
 
 ### Changed
 
-- npm package name **`roastit`** (unscoped `roast` taken); bins `roastit` + `roast`
+- npm package name **`@rapchic/roast`** (unscoped `roast` / `roastit` unavailable or blocked); bins `roast` + `roastit`
 - Skill frontmatter `name: roast-full` to avoid duplicate `/roast` in Cursor picker
+- Strict Criticism Manager stance in skill prompt
 
 [0.1.0]: https://github.com/rapchic/roast/releases/tag/v0.1.0

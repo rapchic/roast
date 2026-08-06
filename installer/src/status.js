@@ -6,7 +6,7 @@ export async function status() {
 
   if (!state) {
     console.log('roast is not installed.');
-    console.log('Run: npx roastit install');
+    console.log('Run: npx @rapchic/roast install');
     return;
   }
 
@@ -27,9 +27,9 @@ export async function status() {
   } else if (updateAvailable) {
     console.log(`  npm latest: v${latest} (this CLI is v${VERSION})`);
     if (releaseUrl) console.log(`  Release notes:    ${releaseUrl}`);
-    console.log('  Run: npx roastit update');
+    console.log('  Run: npx @rapchic/roast update');
   } else if (state.version !== VERSION) {
-    console.log(`  npm latest v${VERSION}; skill meta v${state.version} — run: npx roastit update`);
+    console.log(`  npm latest v${VERSION}; skill meta v${state.version} — run: npx @rapchic/roast update`);
   } else {
     console.log(`  v${VERSION} is up to date.`);
   }

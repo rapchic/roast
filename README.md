@@ -1,6 +1,6 @@
-# roastit
+# @rapchic/roast
 
-[![npm version](https://img.shields.io/npm/v/roastit.svg)](https://www.npmjs.com/package/roastit)
+[![npm version](https://img.shields.io/npm/v/%40rapchic%2Froast.svg)](https://www.npmjs.com/package/@rapchic/roast)
 [![license: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
 [![CI](https://github.com/rapchic/roast/actions/workflows/ci.yml/badge.svg)](https://github.com/rapchic/roast/actions/workflows/ci.yml)
@@ -10,14 +10,14 @@
 ## Quick start
 
 ```bash
-npx roastit@latest install
+npx @rapchic/roast@latest install
 ```
 
 Restart Cursor, then **`/roast`**.
 
 **Team repos:** commit `.cursor/commands/` + `.cursor/skills/roast/` so teammates get `/roast` without a global install.
 
-**Global-only:** `npx roastit install --no-project`
+**Global-only:** `npx @rapchic/roast install --no-project`
 
 ### Slash commands
 
@@ -75,8 +75,8 @@ Details: [docs/modes.md](docs/modes.md)
 Before any roast, gather repo context:
 
 ```bash
-npx roastit context
-npx roastit diff --base auto
+npx @rapchic/roast context
+npx @rapchic/roast diff --base auto
 ```
 
 The agent reads conventions (AGENTS.md, `.cursor/rules`, CI) and scopes the critique. See [docs/init-phase.md](docs/init-phase.md).
@@ -124,7 +124,7 @@ More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
 ## Package name
 
-**`roastit`** on npm. Bins: **`roastit`** and **`roast`**.
+**`@rapchic/roast`** on npm. Bins: **`roast`** and **`roastit`**.
 
 ## What roast is not
 

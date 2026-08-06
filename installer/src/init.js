@@ -60,7 +60,7 @@ export async function init({
     stack: ctx.stack,
     conventionSources: ctx.conventionSources,
     ciWorkflows: ctx.ciWorkflows,
-    notes: 'Local roast config — does not affect agent behavior. Use npx roastit install to deploy the skill.',
+    notes: 'Local roast config — does not affect agent behavior. Use npx @rapchic/roast install to deploy the skill.',
   };
 
   await mkdir(configDir, { recursive: true });
@@ -72,11 +72,11 @@ export async function init({
   console.log(`  Stack: ${ctx.stack.type} (${ctx.stack.packageManager ?? 'unknown'})`);
   if (!ctx.conventionSources?.includes('AGENTS.md')) {
     console.log();
-    console.log('Tip: optional short AGENTS.md → npx roastit init --agents');
+    console.log('Tip: optional short AGENTS.md → npx @rapchic/roast init --agents');
   }
   console.log();
   console.log('Next steps:');
-  console.log('  npx roastit install          # deploy skill to your IDE');
-  console.log('  npx roastit context          # print INIT context for agents');
-  console.log('  npx roastit diff --base auto # diff signals for current branch');
+  console.log('  npx @rapchic/roast install          # deploy skill to your IDE');
+  console.log('  npx @rapchic/roast context          # print INIT context for agents');
+  console.log('  npx @rapchic/roast diff --base auto # diff signals for current branch');
 }

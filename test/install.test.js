@@ -23,7 +23,7 @@ test('cursor install copies skill, commands, and rule to temp HOME', async () =>
     assert.ok(existsSync(skillFile), 'SKILL.md should exist');
 
     const skillContent = await readFile(skillFile, 'utf8');
-    assert.match(skillContent, /Evidence-Based Code Review/);
+    assert.match(skillContent, /Evidence-Based Critique|Evidence-Based Code Review/);
 
     for (const file of CURSOR_COMMAND_FILES) {
       const cmdPath = join(tempHome, '.cursor', 'commands', file);
@@ -32,16 +32,16 @@ test('cursor install copies skill, commands, and rule to temp HOME', async () =>
 
     const roastCmd = await readFile(join(tempHome, '.cursor', 'commands', 'roast.md'), 'utf8');
     assert.match(roastCmd, /roast-and-fix/);
-    assert.match(roastCmd, /roastit@latest install/);
+    assert.match(roastCmd, /@rapchic\/roast@latest install/);
     assert.doesNotMatch(roastCmd, /bootstrap/);
 
     const installCmd = await readFile(
       join(tempHome, '.cursor', 'commands', 'roast-install.md'),
       'utf8',
     );
-    assert.match(installCmd, /roastit@latest install/);
+    assert.match(installCmd, /@rapchic\/roast@latest install/);
     assert.doesNotMatch(installCmd, /bootstrap/);
-    assert.match(installCmd, /roastit/);
+    assert.match(installCmd, /@rapchic\/roast/);
     assert.doesNotMatch(installCmd, /node_modules\/roast\//);
     assert.doesNotMatch(installCmd, /Phase 0 INIT → infer scope → roast output/);
 

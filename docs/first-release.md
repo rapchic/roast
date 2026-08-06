@@ -9,7 +9,7 @@ Publishing **roastit `0.1.0`** (or next 0.x / later 1.0.0 when the API is stable
 - [ ] `npm test` — PASS
 - [ ] `npm run lint` — PASS
 - [ ] `npm run smoke` — PASS
-- [ ] `npm pack --dry-run` — only intended files (`roastit-*.tgz`)
+- [ ] `npm pack --dry-run` — only intended files (`rapchic-roast-*.tgz`)
 - [ ] `package.json` version === `skills/roast/SKILL.md` `version:`
 - [ ] CHANGELOG has `[0.1.0]` (or next version) — no leftover `[Unreleased]` dump
 - [ ] CodeRabbit GitHub App installed; `CODERABBIT_API_KEY` set for release prerelease gate ([coderabbit.md](coderabbit.md))
@@ -28,8 +28,8 @@ Publishing **roastit `0.1.0`** (or next 0.x / later 1.0.0 when the API is stable
 
 ## Post-publish
 
-- [ ] `npm view roastit version`
-- [ ] `npx roastit@latest status`
+- [ ] `npm view @rapchic/roast version`
+- [ ] `npx @rapchic/roast@latest status`
 - [ ] README badge live; remove “until published” callout when green
 - [ ] Link npm package in GitHub About
 

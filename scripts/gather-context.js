@@ -43,5 +43,5 @@ if (existsSync(devCli)) {
   }
 }
 
-console.error('roastit CLI not found. Install with: npm install -g roastit  (or npm link from this repo)');
+console.error('roastit CLI not found. Install with: npm install -g @rapchic/roast  (or npm link from this repo)');
 process.exit(1);

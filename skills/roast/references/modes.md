@@ -7,9 +7,10 @@ All modes share Phase 0 INIT and evidence requirements. Mode controls whether ed
 **Triggers:** `roast independently`, `just roast`, `verdict only`, `/roast-only`
 
 **Behavior:**
-1. INIT → SCOPE (budget) → READ → EVIDENCE → TRIAGE → VERDICT
-2. Compact output by default — no file edits, no fix path unless asked
-3. Optional: suggest fix path as text only
+1. INIT → SCOPE (budget) → READ (every in-scope file) → EVIDENCE → TRIAGE → VERDICT
+2. Criticism Manager stance — brutal evidenced findings; no soft padding
+3. Compact output by default — no file edits, no fix path unless asked
+4. Optional: suggest fix path as text only
 
 **Scope aliases** (say in chat — **not** separate slash command files; same as roast-only with narrower scope):
 - "roast UI" / `/roast-ui` intent — frontend only (components, styles, a11y, state)

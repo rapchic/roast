@@ -7,7 +7,7 @@ Install the Roast agent workflow. **Install only — do not roast.**
 **First time / update?** Run in terminal:
 
 ```bash
-npx roastit@latest install
+npx @rapchic/roast@latest install
 ```
 
 This installs **global** (`~/.cursor/`) **and** **project** (`.cursor/` in this repo) by default.
@@ -15,16 +15,16 @@ This installs **global** (`~/.cursor/`) **and** **project** (`.cursor/` in this 
 **Global only:**
 
 ```bash
-npx roastit install --no-project
+npx @rapchic/roast install --no-project
 ```
 
-**If npm/network fails**, copy bundled files from the roastit package directory (when cloned or in `node_modules/roastit/`):
+**If npm/network fails**, copy bundled files from the roastit package directory (when cloned or in `node_modules/@rapchic/roast/`):
 
 - `commands/cursor/*.md` → `.cursor/commands/`
 - `skills/roast/` → `.cursor/skills/roast/`
 - `rules/roast.mdc` → `.cursor/rules/roast.mdc`
 
-Or run locally: `node node_modules/roastit/installer/bin/cli.js install`
+Or run locally: `node node_modules/@rapchic/roast/installer/bin/cli.js install`
 
 **Confirm output lists:**
 

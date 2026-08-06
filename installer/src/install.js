@@ -56,7 +56,7 @@ export async function install({
       console.log('3. This repo has project commands — /roast may work here before global skill sync');
     }
     if (!globalOk && !projectOk) {
-      console.log('   (If nothing installed, re-run: npx roastit@latest install)');
+      console.log('   (If nothing installed, re-run: npx @rapchic/roast@latest install)');
     }
     console.log('');
   }

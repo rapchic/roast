@@ -7,7 +7,7 @@ Roast without INIT produces vibes. Keep INIT cheap: prefer CLI JSON, bound READ 
 ### 1. CLI context (prefer JSON)
 
 ```bash
-npx roastit context --path . --format json
+npx @rapchic/roast context --path . --format json
 ```
 
 Capture: stack, scripts, convention **names**, CI workflow names.
@@ -15,15 +15,15 @@ Capture: stack, scripts, convention **names**, CI workflow names.
 Optional blast radius:
 
 ```bash
-npx roastit context --target 'src/auth/**' --format json
+npx @rapchic/roast context --target 'src/auth/**' --format json
 ```
 
 ### 2. CLI diff (prefer JSON)
 
 ```bash
-npx roastit diff --base auto --format json
+npx @rapchic/roast diff --base auto --format json
 # committed history only:
-npx roastit diff --base auto --committed-only --format json
+npx @rapchic/roast diff --base auto --committed-only --format json
 ```
 
 Default includes **working tree + untracked**. Note `scopeBudget.overBudget` — if true, ask before reading past the top areas / first 30 files.
@@ -35,7 +35,7 @@ Priority:
 2. Names from context JSON (`conventionSources`)
 3. Open a file **only** to cite a violation — not "to get oriented"
 
-`AGENTS.md` missing → list as absent; optional 🟡 finding. **Do not create it** in roast modes. Opt-in: `npx roastit init --agents`.
+`AGENTS.md` missing → list as absent; optional 🟡 finding. **Do not create it** in roast modes. Opt-in: `npx @rapchic/roast init --agents`.
 
 If `.cursor/rules/roast-patterns.mdc` exists (from `/roast-learn`), treat it as a high-priority convention source when judging consistency.
 

@@ -1,7 +1,7 @@
 # Contributing to roastit
 
 Setup for people **building** roastit in this git repo.  
-End users: see [README.md](README.md) (`npx roastit@latest …`).
+End users: see [README.md](README.md) (`npx @rapchic/roast@latest …`).
 
 ## One-time setup
 
@@ -88,10 +88,10 @@ npm test && npm run lint && npm run smoke
 
 Keep these separate (also in `dev/roast-no.md`):
 
-| | **Shipped (`roastit`)** | **This repo** |
+| | **Shipped (`@rapchic/roast`)** | **This repo** |
 |--|-------------------------|--------------|
-| Install | `npx roastit@latest install` | `npm link` + `npm run dev:setup` |
-| Update | `npx roastit update` | Re-`install` / `sync:project-cursor` after edits |
+| Install | `npx @rapchic/roast@latest install` | `npm link` + `npm run dev:setup` |
+| Update | `npx @rapchic/roast update` | Re-`install` / `sync:project-cursor` after edits |
 | README | User-facing only | Never put `npm link` / “pre-publish” here |
 | `/roast-no` | Not shipped | Project `.cursor/` only |
 
