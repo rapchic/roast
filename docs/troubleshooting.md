@@ -36,9 +36,10 @@ Package is **`@rapchic/roast`**. Unscoped `roast` / `roastit` on npm are differe
 
 Writable home; macOS Full Disk Access if needed; run install from a normal shell.
 
-## `roastit diff` fails
+## `roast diff` fails
 
-- Not a git repo → use `roastit context` only  
+- Not a git repo → use `roast context` / `npx @rapchic/roast context` only  
+
 - Merge-base: `npx @rapchic/roast diff --base origin/main` (keeps remote ref)
 
 ## Wrong npm package
@@ -53,9 +54,9 @@ npm view @rapchic/roast description
 npx @rapchic/roast update
 ```
 
-Downloads `roastit@latest` from npm, then reinstalls. Needs network + a published package.
+Downloads latest `@rapchic/roast` from npm, then reinstalls. Needs network + a published package.
 
-Working on the roastit **git repo**? Use install from your checkout instead — see `CONTRIBUTING.md`.
+Working on this **git repo**? Use install from your checkout instead — see `CONTRIBUTING.md`.
 
 ## Claude / Codex
 

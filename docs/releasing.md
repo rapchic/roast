@@ -19,7 +19,7 @@ When bumping:
 2. `skills/roast/SKILL.md` frontmatter → `version: X.Y.Z`
 3. `CHANGELOG.md` — add `[X.Y.Z] - YYYY-MM-DD` (fold draft notes into that section; no lingering Unreleased dump)
 
-CLI `roastit --version` / `roast --version` reads `package.json`.
+CLI `roast --version` / `roastit --version` reads `package.json`.
 
 ## Automated release (GitHub Actions)
 
@@ -68,7 +68,7 @@ Verify:
 
 ```bash
 npm view @rapchic/roast version
-npx @rapchic/roast@latest status
+npx @rapchic/roast status
 ```
 
 ## GitHub checklist

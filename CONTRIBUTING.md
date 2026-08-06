@@ -1,7 +1,7 @@
 # Contributing to roastit
 
 Setup for people **building** roastit in this git repo.  
-End users: see [README.md](README.md) (`npx @rapchic/roast@latest …`).
+End users: see [README.md](README.md) (`npx @rapchic/roast …`).
 
 ## One-time setup
 
@@ -70,11 +70,11 @@ Tip: start with `/roast-only` on a small path (`installer/src/diff.js`) before w
 
 ## After you change sources
 
-Edit **sources of truth**, then sync — do **not** use `roastit update` (that’s for npm users):
+Edit **sources of truth**, then sync — do **not** use `roast update` / `npx @rapchic/roast update` for local clone refresh (that’s for npm users):
 
 | You edited | Then run |
 |------------|----------|
-| `skills/roast/`, `commands/cursor/`, `rules/` | `npm run sync:project-cursor` **and** `roastit install --tools cursor --yes` |
+| `skills/roast/`, `commands/cursor/`, `rules/` | `npm run sync:project-cursor` **and** `roast install --tools cursor --yes` |
 | `installer/` only | `npm test` (CLI is already linked) |
 | `dev/roast-no.md` or `dev/commands/roast-no.md` | `npm run dev:setup` (or copy into `.cursor/commands/`) |
 
@@ -90,7 +90,7 @@ Keep these separate (also in `dev/roast-no.md`):
 
 | | **Shipped (`@rapchic/roast`)** | **This repo** |
 |--|-------------------------|--------------|
-| Install | `npx @rapchic/roast@latest install` | `npm link` + `npm run dev:setup` |
+| Install | `npx @rapchic/roast install` | `npm link` + `npm run dev:setup` |
 | Update | `npx @rapchic/roast update` | Re-`install` / `sync:project-cursor` after edits |
 | README | User-facing only | Never put `npm link` / “pre-publish” here |
 | `/roast-no` | Not shipped | Project `.cursor/` only |

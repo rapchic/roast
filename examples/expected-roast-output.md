@@ -73,5 +73,5 @@ Missing:
 ## Token hygiene
 
 - Prefer compact output
-- Scope ≤30 files from `roastit diff` unless user expands
+- Scope ≤30 files from `roast diff` unless user expands
 - Do not create `AGENTS.md` during roast — use `npx @rapchic/roast init --agents` if the user wants it

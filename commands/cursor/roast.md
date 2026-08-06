@@ -12,7 +12,7 @@ Read and follow the **roast-full** skill **immediately** (first path that exists
 If **neither file exists**, tell the user to run **`/roast-install`**, or in the terminal:
 
 ```bash
-npx @rapchic/roast@latest install
+npx @rapchic/roast install
 ```
 
 After install: restart Cursor. Do not proceed with a vague review.

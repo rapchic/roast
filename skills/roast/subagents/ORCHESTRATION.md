@@ -14,7 +14,7 @@ Prompt file to give each explorer: [`explorer.md`](explorer.md)
 
 ## How
 
-1. Split `roastit diff` `byArea` into ≤ **4** buckets
+1. Split `roast diff` `byArea` into ≤ **4** buckets
 2. For each bucket, spawn a **read-only** Task (`explore` or `generalPurpose`) with:
    - Contents of `subagents/explorer.md`
    - Exact file list for that area

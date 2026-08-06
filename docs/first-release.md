@@ -29,7 +29,7 @@ Publishing **roastit `0.1.0`** (or next 0.x / later 1.0.0 when the API is stable
 ## Post-publish
 
 - [ ] `npm view @rapchic/roast version`
-- [ ] `npx @rapchic/roast@latest status`
+- [ ] `npx @rapchic/roast status`
 - [ ] README badge live; remove “until published” callout when green
 - [ ] Link npm package in GitHub About
 

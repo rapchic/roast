@@ -10,7 +10,7 @@
 ## Quick start
 
 ```bash
-npx @rapchic/roast@latest install
+npx @rapchic/roast install
 ```
 
 Restart Cursor, then **`/roast`**.
@@ -34,8 +34,8 @@ Restart Cursor, then **`/roast`**.
 ## What it does
 
 - **Installs** a roast skill + slash commands to Cursor, Claude Code, or Codex
-- **Gathers context** (`roastit context`) — stack, scripts, conventions, CI
-- **Surfaces diff signals** (`roastit diff`) — changed files, test/doc hints, suggested scope
+- **Gathers context** (`roast context`) — stack, scripts, conventions, CI
+- **Surfaces diff signals** (`roast diff`) — changed files, test/doc hints, suggested scope
 - **Enforces evidence** — findings cite `file:line`, diff, or test output; chat-only output
 
 [Full documentation →](docs/README.md)

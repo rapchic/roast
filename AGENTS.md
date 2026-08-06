@@ -7,8 +7,8 @@ Meta guidance for AI agents editing **this git repository**.
 | | **Shipped (`@rapchic/roast`)** | **This repo** |
 |--|-------------------------|--------------|
 | Ship | `installer/`, `skills/`, `rules/`, `commands/cursor/`, `scripts/`, README, LICENSE | `dev/`, `docs/`, `test/`, `AGENTS.md`, project `.cursor/commands/roast-no.md` |
-| Install | `npx @rapchic/roast@latest …` | `npm link` + `npm run dev:setup` |
-| Update | `npx @rapchic/roast update` (npm fetch) | After edits: `npm run sync:project-cursor` + `roastit install --tools cursor` |
+| Install | `npx @rapchic/roast …` | `npm link` + `npm run dev:setup` |
+| Update | `npx @rapchic/roast update` (npm fetch) | After edits: `npm run sync:project-cursor` + `roast install --tools cursor` |
 | Don’t-list | — | `dev/roast-no.md` · project slash `/roast-no` |
 
 Never put contributor/`npm link` flows in README.
@@ -60,6 +60,6 @@ See **`dev/roast-no.md`** (run project **`/roast-no`**). Highlights:
 
 - No dual publish paths in README
 - Don’t ship workspace tools in the npm package
-- Don’t use `roastit update` for local clone refresh — use `install`
+- Don’t use `npx @rapchic/roast update` for local clone refresh — use `roast install`
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/](docs/README.md).

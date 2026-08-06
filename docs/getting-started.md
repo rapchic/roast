@@ -21,7 +21,7 @@ If both `/roast` and `/roast-full` appear in the picker: pick **`/roast`** for d
 ### 1. First install
 
 ```bash
-npx @rapchic/roast@latest install
+npx @rapchic/roast install
 ```
 
 This installs:
@@ -31,7 +31,7 @@ This installs:
 
 | Situation | Command |
 |-----------|---------|
-| Default (global + this repo) | `npx @rapchic/roast@latest install` |
+| Default (global + this repo) | `npx @rapchic/roast install` |
 | Global only | `npx @rapchic/roast install --no-project` |
 | Global npm | `npm install -g @rapchic/roast` (postinstall deploys if `~/.cursor` exists) |
 

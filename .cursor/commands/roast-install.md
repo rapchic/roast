@@ -7,7 +7,7 @@ Install the Roast agent workflow. **Install only — do not roast.**
 **First time / update?** Run in terminal:
 
 ```bash
-npx @rapchic/roast@latest install
+npx @rapchic/roast install
 ```
 
 This installs **global** (`~/.cursor/`) **and** **project** (`.cursor/` in this repo) by default.

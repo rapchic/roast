@@ -7,7 +7,7 @@ body:
     id: version
     attributes:
       label: roast version
-      placeholder: "0.1.0 or `roastit --version`"
+      placeholder: "0.1.2 or `roast --version`"
     validations:
       required: true
   - type: input

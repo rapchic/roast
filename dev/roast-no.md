@@ -13,7 +13,7 @@ description: >
 
 | | **Shipped (`@rapchic/roast`)** | **This git repo** |
 |--|-------------------------|-------------------|
-| Install | `npx @rapchic/roast@latest …` | `npm link` + `roastit install` / `npm run sync:project-cursor` |
+| Install | `npx @rapchic/roast …` | `npm link` + `roastit install` / `npm run sync:project-cursor` |
 | Update | `npx @rapchic/roast update` (fetches npm) | Re-install from checkout after you edit sources |
 | Slash | `/roast`, `/roast-only`, `/roast-idea`, `/roast-what`, `/roast-learn`, `/roast-install`, `/roast-full` | Plus **`/roast-no`** (project `.cursor/` only) |
 | Docs | `README.md` | `CONTRIBUTING.md`, `AGENTS.md`, `dev/` |
@@ -40,7 +40,7 @@ Audit **this repo** against the don’t-list. Report `path:line`. Do not invent 
 
 ### README / user-facing
 
-- One install story: `npx @rapchic/roast@latest …`
+- One install story: `npx @rapchic/roast …`
 - No version essays in the README hero
 - No apologizing for badges
 

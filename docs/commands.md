@@ -26,7 +26,7 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 
 | Intent | Cursor slash | Terminal |
 |--------|--------------|----------|
-| Install / update | `/roast-install` | `npx @rapchic/roast@latest install` |
+| Install / update | `/roast-install` | `npx @rapchic/roast install` |
 | Roast + fix | `/roast` | (agent chat only) |
 | Roast only | `/roast-only` | (agent chat only) |
 | Plain English | `/roast-what` | (agent chat only) |
@@ -44,7 +44,7 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 Install skill + slash commands: **global** IDE dirs **and** project `.cursor/` (default).
 
 ```bash
-npx @rapchic/roast@latest install
+npx @rapchic/roast install
 npx @rapchic/roast install --no-project   # global only
 npx @rapchic/roast install --tools cursor,claude,codex
 ```
@@ -90,7 +90,7 @@ Fetches latest `@rapchic/roast` from npm (`npx @rapchic/roast@<ver> install …`
 npx @rapchic/roast update
 ```
 
-Editing this git repo? Don’t use `update` for local changes — run `roastit install` (or `npm run sync:project-cursor`). See `CONTRIBUTING.md`.
+Editing this git repo? Don’t use `update` for local changes — run `roast install` (or `npm run sync:project-cursor`). See `CONTRIBUTING.md`.
 
 ### `roast status`
 

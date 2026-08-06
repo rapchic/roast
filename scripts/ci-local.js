@@ -16,7 +16,7 @@ const steps = [
   ['pack:check', ['run', 'pack:check']],
 ];
 
-console.log('🔥 roastit local CI (mirrors GitHub Actions test job)\n');
+console.log('🔥 @rapchic/roast local CI (mirrors GitHub Actions test job)\n');
 
 for (const [name, args] of steps) {
   console.log(`── ${name} ──`);

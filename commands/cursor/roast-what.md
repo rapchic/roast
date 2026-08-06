@@ -6,7 +6,7 @@ Read the **roast-full** skill (first path that exists): `~/.cursor/skills/roast/
 
 **Mode:** `roast-what`
 
-If missing: run **`/roast-install`**, or `npx @rapchic/roast@latest install` then restart Cursor — do not proceed with a vague summary.
+If missing: run **`/roast-install`**, or `npx @rapchic/roast install` then restart Cursor — do not proceed with a vague summary.
 
 **Job:** explain in **plain language** — no jargon wall, no comedy roast tone.
 
