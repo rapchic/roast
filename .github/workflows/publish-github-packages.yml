@@ -2,11 +2,9 @@ name: Publish GitHub Package
 
 # Fills the repo "Packages" sidebar (GitHub Packages registry).
 # npmjs remains the primary install: npx @rapchic/roast install
+# Tag releases also publish via release.yml — use this for a one-shot backfill.
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*.*.*'
 
 permissions:
   contents: read
