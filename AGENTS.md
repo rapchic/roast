@@ -8,7 +8,7 @@ Meta guidance for AI agents editing **this git repository**.
 |--|-------------------------|--------------|
 | Ship | `installer/`, `skills/`, `rules/`, `commands/cursor/`, `scripts/`, README, LICENSE | `dev/`, `docs/`, `test/`, `AGENTS.md`, project `.cursor/commands/roast-no.md` |
 | Install | `npx roastit@latest …` | `npm link` + `npm run dev:setup` |
-| Update | `npx roastit update --yes` (npm fetch) | After edits: `npm run sync:project-cursor` + `roastit install --tools cursor --yes` |
+| Update | `npx roastit update` (npm fetch) | After edits: `npm run sync:project-cursor` + `roastit install --tools cursor` |
 | Don’t-list | — | `dev/roast-no.md` · project slash `/roast-no` |
 
 Never put contributor/`npm link` flows in README.
@@ -37,7 +37,8 @@ npm run sync:project-cursor    # after editing shipped skill/commands/rules
 ## Commands
 
 ```bash
-npm run dev:setup     # link-ready install + project .cursor/ + /roast-no
+npm run dev:setup     # Cursor install + local CI hooks + /roast-no
+npm run ci            # test + lint + smoke + pack (same as GitHub; also on pre-push)
 npm test
 npm run smoke
 npm run lint

@@ -24,7 +24,7 @@ program
 
 program
   .command('bootstrap')
-  .description('First-time setup: global install + project .cursor/ (recommended)')
+  .description('Alias for install (global + project). Prefer: roastit install')
   .option('--tools <clients>', 'Comma-separated: cursor, claude, codex (default: auto-detect)')
   .option('--path <dir>', 'Project root for .cursor/ files', process.cwd())
   .option('--no-project', 'Skip installing .cursor/ in current repo')
@@ -44,25 +44,32 @@ program
   .option('--path <dir>', 'Repository root', process.cwd())
   .option('--yes', 'Overwrite existing config / AGENTS.md')
   .option('--agents', 'Write a short AGENTS.md template (opt-in; never during roast)')
-  .option('--install', 'Also run bootstrap (global + project install)')
+  .option('--install', 'Also run install (global + project)')
   .action(async (opts) => {
     await init(opts);
     if (opts.install) {
       if (opts.agents) {
-        console.log('Also running bootstrap (--install with --agents)…\n');
+        console.log('Also running install (--install with --agents)…\n');
       }
-      await bootstrap({ path: opts.path, yes: opts.yes, project: true });
+      await install({ path: opts.path, yes: opts.yes, project: true });
     }
   });
 
 program
   .command('install')
-  .description('Deploy roast skill and slash commands to Cursor / Claude / Codex')
+  .description('Install roast skill + slash commands (global + project .cursor/ by default)')
   .option('--tools <clients>', 'Comma-separated: cursor, claude, codex (default: auto-detect)')
-  .option('--project', 'Also install .cursor/ in current repo (team-friendly, no global needed for /roast)')
-  .option('--path <dir>', 'Project root when using --project', process.cwd())
-  .option('--yes', 'Non-interactive')
-  .action((opts) => install(opts));
+  .option('--no-project', 'Skip project .cursor/ — global IDE install only')
+  .option('--path <dir>', 'Project root for .cursor/ files', process.cwd())
+  .option('--yes', 'Non-interactive (compat; install does not prompt)')
+  .action((opts) =>
+    install({
+      tools: opts.tools,
+      yes: Boolean(opts.yes),
+      project: opts.project,
+      path: opts.path,
+    }),
+  );
 
 program
   .command('update')

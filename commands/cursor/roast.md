@@ -12,13 +12,7 @@ Read and follow the **roast-full** skill **immediately** (first path that exists
 If **neither file exists**, tell the user to run **`/roast-install`**, or in the terminal:
 
 ```bash
-npx -y roastit@latest bootstrap --yes
-```
-
-Or project-only:
-
-```bash
-npx -y roastit@latest install --tools cursor --project --yes
+npx roastit@latest install
 ```
 
 After install: restart Cursor. Do not proceed with a vague review.

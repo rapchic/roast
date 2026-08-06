@@ -11,14 +11,14 @@ First npm release of **`roastit`** (0.x = API may still change).
 
 ### Added
 
-- CLI: `bootstrap`, `init`, `install`, `update`, `status`, `uninstall`, `context`, `diff`
+- CLI: `install`, `init`, `update`, `status`, `uninstall`, `context`, `diff` (`bootstrap` = alias for `install`)
 - Multi-IDE install: Cursor, Claude Code, Codex
 - Cursor slash **commands:** `/roast`, `/roast-only`, `/roast-idea`, `/roast-what`, `/roast-learn`, `/roast-install`
 - Cursor slash **skill:** `/roast-full` (playbook; prefer commands)
 - `/roast-what` — plain-English explainer for the diff or a prior roast
 - `/roast-learn` — learn project patterns & antipatterns → `.cursor/rules/roast-patterns.mdc`
 - Evidence-based roast skill (modes + subagents for over-budget scope)
-- `roast install --project` / bootstrap project `.cursor/` for teams
+- `roast install` deploys global + project `.cursor/` by default (`--no-project` for global-only)
 - `roastit update` — fetch latest from npm and reinstall
 - `roastit diff` includes working tree + untracked; `--committed-only`; `--since`
 - Scope budget (30 files) + compact roast output by default
@@ -26,6 +26,7 @@ First npm release of **`roastit`** (0.x = API may still change).
 - Contributor tooling: `npm run dev:setup`, workspace-only `/roast-no` (not shipped)
 - Docs, CI, release workflow, smoke tests, LICENSE
 - CodeRabbit: `.coderabbit.yaml` + CLI workflow on `main` + prerelease gate before npm publish
+- Local CI: `npm run ci` + `.githooks/pre-push` (catch failures before GitHub)
 
 ### Changed
 

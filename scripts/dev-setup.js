@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
  * Contributor setup for this git repo only (not shipped).
- * Installs Cursor skill/commands from this checkout and ensures workspace /roast-no.
+ * Installs Cursor skill/commands from this checkout, enables local CI hooks, /roast-no.
  */
-import { cp, mkdir } from 'node:fs/promises';
+import { cp, chmod, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,8 +19,7 @@ function run(cmd, args) {
 
 console.log('🔥 roastit contributor setup\n');
 
-run(process.execPath, [cli, 'install', '--tools', 'cursor', '--yes']);
-run(process.execPath, [cli, 'install', '--tools', 'cursor', '--project', '--yes', '--path', root]);
+run(process.execPath, [cli, 'install', '--tools', 'cursor', '--path', root]);
 
 const roastNoSrc = join(root, 'dev', 'commands', 'roast-no.md');
 const destDir = join(root, '.cursor', 'commands');
@@ -33,13 +32,20 @@ if (existsSync(roastNoSrc)) {
   console.warn('⚠ Missing dev/commands/roast-no.md');
 }
 
+const hook = join(root, '.githooks', 'pre-push');
+if (existsSync(hook)) {
+  await chmod(hook, 0o755);
+  run('git', ['config', 'core.hooksPath', '.githooks']);
+  console.log('✓ Local CI: git core.hooksPath=.githooks (pre-push → npm run ci)');
+}
+
 console.log(`
 ── Next ──
 1. Restart Cursor (or Developer: Reload Window)
 2. /roast-only     → roast this repo and learn the format
 3. /roast-no       → audit contributor don’t-list
-4. npm test && npm run smoke
+4. npm run ci      → same gates as GitHub (also runs on git push)
 
 After editing skills/commands/rules:
-  npm run sync:project-cursor && roastit install --tools cursor --yes
+  npm run sync:project-cursor && roastit install --tools cursor
 `);

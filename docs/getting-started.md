@@ -21,7 +21,7 @@ If both `/roast` and `/roast-full` appear in the picker: pick **`/roast`** for d
 ### 1. First install
 
 ```bash
-npx -y roastit@latest bootstrap --yes
+npx roastit@latest install
 ```
 
 This installs:
@@ -31,8 +31,8 @@ This installs:
 
 | Situation | Command |
 |-----------|---------|
-| Global only | `npx roastit install --tools cursor --yes` |
-| This repo only | `npx roastit install --tools cursor --project --yes` |
+| Default (global + this repo) | `npx roastit@latest install` |
+| Global only | `npx roastit install --no-project` |
 | Global npm | `npm install -g roastit` (postinstall deploys if `~/.cursor` exists) |
 
 ### 2. Restart Cursor
@@ -50,13 +50,13 @@ Agent runs Phase 0 INIT → compact findings → minimal fixes → test/lint whe
 ### Reinstall
 
 In chat: **`/roast-install`**  
-Or terminal: `npx roastit install --tools cursor --yes`
+Or terminal: `npx roastit install`
 
 ## Claude Code / Codex
 
 ```bash
-npx roastit install --tools claude --yes
-npx roastit install --tools codex --yes
+npx roastit install --tools claude
+npx roastit install --tools codex
 ```
 
 Skills land under `~/.claude/skills/roast/` or `~/.codex/skills/roast/`. Say “roast and fix” or load the skill in chat.

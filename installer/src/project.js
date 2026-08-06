@@ -20,14 +20,8 @@ export function projectCursorPaths(root) {
   };
 }
 
-export async function installProject({ path: root = process.cwd(), yes = false } = {}) {
+export async function installProject({ path: root = process.cwd() } = {}) {
   const { commandsDir, skillsDir, skillFile, rulesFile } = projectCursorPaths(root);
-
-  if (existsSync(skillFile) && !yes) {
-    console.log(`Project roast already installed at ${skillFile}`);
-    console.log('Pass --yes to overwrite.');
-    return { installed: false };
-  }
 
   await copySkill(skillsDir);
   await copyCursorCommands(commandsDir);

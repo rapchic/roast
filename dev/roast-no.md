@@ -14,7 +14,7 @@ description: >
 | | **Shipped (`roastit`)** | **This git repo** |
 |--|-------------------------|-------------------|
 | Install | `npx roastit@latest …` | `npm link` + `roastit install` / `npm run sync:project-cursor` |
-| Update | `npx roastit update --yes` (fetches npm) | Re-install from checkout after you edit sources |
+| Update | `npx roastit update` (fetches npm) | Re-install from checkout after you edit sources |
 | Slash | `/roast`, `/roast-only`, `/roast-idea`, `/roast-what`, `/roast-learn`, `/roast-install`, `/roast-full` | Plus **`/roast-no`** (project `.cursor/` only) |
 | Docs | `README.md` | `CONTRIBUTING.md`, `AGENTS.md`, `dev/` |
 
@@ -40,7 +40,7 @@ Audit **this repo** against the don’t-list. Report `path:line`. Do not invent 
 
 ### README / user-facing
 
-- One install story: `npx -y roastit@latest …`
+- One install story: `npx roastit@latest …`
 - No version essays in the README hero
 - No apologizing for badges
 

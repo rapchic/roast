@@ -22,9 +22,10 @@
     "lint": "node scripts/lint.js",
     "smoke": "node scripts/smoke-install.js",
     "pack:check": "npm pack --dry-run",
-    "prepublishOnly": "npm test && npm run lint && npm run smoke && npm run pack:check",
+    "ci": "node scripts/ci-local.js",
+    "prepublishOnly": "npm run ci",
     "postinstall": "node scripts/postinstall.js",
-    "sync:project-cursor": "node installer/bin/cli.js install --tools cursor --project --yes --path .",
+    "sync:project-cursor": "node installer/bin/cli.js install --tools cursor --path .",
     "dev:setup": "node scripts/dev-setup.js"
   },
   "dependencies": {

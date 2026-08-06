@@ -15,7 +15,7 @@ if (!isGlobal || skip) {
 }
 
 if (!existsSync(join(homedir(), '.cursor'))) {
-  console.log('roast: ~/.cursor not found — skip postinstall (run: npx roastit bootstrap --yes)');
+  console.log('roast: ~/.cursor not found — skip postinstall (run: npx roastit install)');
   process.exit(0);
 }
 

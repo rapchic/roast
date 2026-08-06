@@ -10,7 +10,7 @@ git clone https://github.com/rapchic/roast.git
 cd roast
 npm install
 npm link                 # puts `roastit` / `roast` on your PATH from this checkout
-npm run dev:setup        # install Cursor skill + project .cursor/ + /roast-no
+npm run dev:setup        # Cursor skill + project .cursor/ + local CI hooks + /roast-no
 ```
 
 Then **restart Cursor** (or Reload Window).
@@ -18,7 +18,7 @@ Then **restart Cursor** (or Reload Window).
 | Step | What you get |
 |------|----------------|
 | `npm link` | CLI runs from this repo (your edits, not npm) |
-| `dev:setup` | Global `~/.cursor/skills/roast/` + commands; project `.cursor/` for this workspace |
+| `dev:setup` | Global/project Cursor install; **`core.hooksPath=.githooks`** so push runs local CI |
 | Project `/roast-no` | Workspace don’t-list (`dev/roast-no.md`) — **not** shipped to npm users |
 
 Verify:
@@ -26,8 +26,24 @@ Verify:
 ```bash
 roastit --version          # should match package.json (0.1.0…)
 roastit status
-npm test && npm run smoke
+npm run ci                 # test + lint + smoke + pack (same as GitHub Actions)
 ```
+
+## Local CI (before GitHub)
+
+Run the same checks GitHub will run — **on your machine**, before push:
+
+```bash
+npm run ci
+```
+
+`npm run dev:setup` wires `.githooks/pre-push` so **`git push` runs `npm run ci` automatically**.  
+This is **not** a GitHub Actions workflow; it only fails locally so Actions stays green.
+
+| Escape hatch | When |
+|--------------|------|
+| `SKIP_LOCAL_CI=1 git push` | Rare emergency skip |
+| `git push --no-verify` | Bypass hooks entirely |
 
 ## Dogfood: roast and learn
 
@@ -74,8 +90,8 @@ Keep these separate (also in `dev/roast-no.md`):
 
 | | **Shipped (`roastit`)** | **This repo** |
 |--|-------------------------|--------------|
-| Install | `npx roastit@latest bootstrap --yes` | `npm link` + `npm run dev:setup` |
-| Update | `npx roastit update --yes` | Re-`install` / `sync:project-cursor` after edits |
+| Install | `npx roastit@latest install` | `npm link` + `npm run dev:setup` |
+| Update | `npx roastit update` | Re-`install` / `sync:project-cursor` after edits |
 | README | User-facing only | Never put `npm link` / “pre-publish” here |
 | `/roast-no` | Not shipped | Project `.cursor/` only |
 
@@ -95,7 +111,7 @@ Version: `package.json` === `skills/roast/SKILL.md` frontmatter `version:` (stay
 
 ## Pull requests
 
-- [ ] `npm test` · `npm run lint` · `npm run smoke`
+- [ ] `npm run ci` (or push — pre-push hook runs it)
 - [ ] User-facing changes → `CHANGELOG.md` + `docs/` if needed
 - [ ] Generic examples only (auth / API / UI)
 - [ ] No dual publish paths in README (`/roast-no` should stay clean)

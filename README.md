@@ -10,14 +10,14 @@
 ## Quick start
 
 ```bash
-npx -y roastit@latest bootstrap --yes
+npx roastit@latest install
 ```
 
 Restart Cursor, then **`/roast`**.
 
 **Team repos:** commit `.cursor/commands/` + `.cursor/skills/roast/` so teammates get `/roast` without a global install.
 
-**Global-only:** `npx roastit install --tools cursor --yes`
+**Global-only:** `npx roastit install --no-project`
 
 ### Slash commands
 
@@ -44,14 +44,14 @@ Restart Cursor, then **`/roast`**.
 
 | Command | Description |
 |---------|-------------|
-| `roast bootstrap` | First-time setup — global + project `.cursor/` |
-| `roast init` | Detect repo + IDE, write `.roast/config.json` |
-| `roast install` | Deploy skill + commands + rules |
+| `roast install` | Install skill + commands (global + project `.cursor/`) |
 | `roast update` | Update installed skill |
 | `roast status` | Version + update check |
 | `roast uninstall` | Remove from IDEs |
 | `roast context` | Phase 0 INIT — stack, scripts, rules, CI |
 | `roast diff` | Git diff signals for roast input |
+| `roast init` | Detect repo + IDE, write `.roast/config.json` |
+| `roast bootstrap` | Alias for `install` (prefer `install`) |
 
 See [docs/commands.md](docs/commands.md) for flags and examples.
 

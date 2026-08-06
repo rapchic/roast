@@ -4,18 +4,18 @@ description: "/roast-install — command (install only). Deploys roast-full skil
 
 Install the Roast agent workflow. **Install only — do not roast.**
 
-**First time (no skill on disk yet)?** Run in terminal:
+**First time / update?** Run in terminal:
 
 ```bash
-npx -y roastit@latest bootstrap --yes
+npx roastit@latest install
 ```
 
-This installs **global** (`~/.cursor/`) **and** **project** (`.cursor/` in this repo) in one step.
+This installs **global** (`~/.cursor/`) **and** **project** (`.cursor/` in this repo) by default.
 
-**Reinstall / update only:**
+**Global only:**
 
 ```bash
-npx roastit install --tools cursor --yes
+npx roastit install --no-project
 ```
 
 **If npm/network fails**, copy bundled files from the roastit package directory (when cloned or in `node_modules/roastit/`):
@@ -24,7 +24,7 @@ npx roastit install --tools cursor --yes
 - `skills/roast/` → `.cursor/skills/roast/`
 - `rules/roast.mdc` → `.cursor/rules/roast.mdc`
 
-Or run locally: `node node_modules/roastit/installer/bin/cli.js bootstrap --yes`
+Or run locally: `node node_modules/roastit/installer/bin/cli.js install`
 
 **Confirm output lists:**
 
@@ -34,4 +34,4 @@ Or run locally: `node node_modules/roastit/installer/bin/cli.js bootstrap --yes`
 
 Tell the user: **Restart Cursor**, then type **`/roast`** (command). The full playbook also appears as **`/roast-full`** (skill) — prefer the commands.
 
-For teammates: commit `.cursor/commands/` and `.cursor/skills/roast/` — they get `/roast` without running bootstrap.
+For teammates: commit `.cursor/commands/` and `.cursor/skills/roast/` — they get `/roast` without running install.

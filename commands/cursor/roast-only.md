@@ -6,6 +6,6 @@ Read the **roast-full** skill (first path that exists): `~/.cursor/skills/roast/
 
 **Mode:** `roast-only`
 
-If missing: run **`/roast-install`**, or `npx -y roastit@latest bootstrap --yes` then restart Cursor — do not proceed with a vague review.
+If missing: run **`/roast-install`**, or `npx roastit@latest install` then restart Cursor — do not proceed with a vague review.
 
 Phase 0 INIT → compact roast → verdict. **No file edits.** Scope ≤30 files from diff/target (ask if over). Every finding needs evidence. Be brief — no tool narration.

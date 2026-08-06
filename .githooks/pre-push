@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Local pre-push CI — runs before code reaches GitHub.
+# Enable via: npm run dev:setup  (sets core.hooksPath=.githooks)
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+if [[ "${SKIP_LOCAL_CI:-}" == "1" ]]; then
+  echo "⚠ SKIP_LOCAL_CI=1 — skipping local CI"
+  exit 0
+fi
+
+echo "→ pre-push: npm run ci"
+npm run ci

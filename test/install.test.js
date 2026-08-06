@@ -32,13 +32,15 @@ test('cursor install copies skill, commands, and rule to temp HOME', async () =>
 
     const roastCmd = await readFile(join(tempHome, '.cursor', 'commands', 'roast.md'), 'utf8');
     assert.match(roastCmd, /roast-and-fix/);
-    assert.match(roastCmd, /bootstrap/);
+    assert.match(roastCmd, /roastit@latest install/);
+    assert.doesNotMatch(roastCmd, /bootstrap/);
 
     const installCmd = await readFile(
       join(tempHome, '.cursor', 'commands', 'roast-install.md'),
       'utf8',
     );
-    assert.match(installCmd, /bootstrap/);
+    assert.match(installCmd, /roastit@latest install/);
+    assert.doesNotMatch(installCmd, /bootstrap/);
     assert.match(installCmd, /roastit/);
     assert.doesNotMatch(installCmd, /node_modules\/roast\//);
     assert.doesNotMatch(installCmd, /Phase 0 INIT → infer scope → roast output/);

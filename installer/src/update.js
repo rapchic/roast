@@ -25,7 +25,7 @@ async function reinstallFromThisPackage(clients) {
 
 function fetchLatestViaNpx(latest, clients) {
   const tools = clients.join(',');
-  const args = ['-y', `roastit@${latest}`, 'install', '--tools', tools, '--yes'];
+  const args = ['-y', `roastit@${latest}`, 'install', '--tools', tools];
   console.log(`→ Fetching roastit@${latest} via npx…`);
   console.log(`  npx ${args.join(' ')}\n`);
 
@@ -72,7 +72,7 @@ export async function update({ yes = false } = {}) {
 
   if (!latest) {
     console.error('Cannot update: npm registry unreachable or roastit is not published yet.');
-    console.error('From a git clone: run `roastit install --tools cursor --yes` (see CONTRIBUTING.md).');
+    console.error('From a git clone: run `roastit install` (see CONTRIBUTING.md).');
     process.exit(1);
   }
 
@@ -90,13 +90,13 @@ export async function update({ yes = false } = {}) {
 
   if (!yes) {
     if (!process.stdin.isTTY) {
-      console.error('Non-interactive shell detected. Re-run with --yes to apply the update.');
-      process.exit(1);
-    }
-    const answer = await prompt(`Download roastit@${latest} and reinstall? [Y/n] `);
-    if (answer.toLowerCase() === 'n') {
-      console.log('Update skipped.');
-      return;
+      // Non-interactive (CI/agents): apply without prompting
+    } else {
+      const answer = await prompt(`Download roastit@${latest} and reinstall? [Y/n] `);
+      if (answer.toLowerCase() === 'n') {
+        console.log('Update skipped.');
+        return;
+      }
     }
   }
 

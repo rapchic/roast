@@ -12,7 +12,7 @@ Prefer commands. See [commands.md](commands.md).
 ## Skill not found / vague review
 
 1. `/roast-install` in chat  
-2. Or: `npx roastit install --tools cursor --yes`  
+2. Or: `npx roastit install`  
 3. Confirm `~/.cursor/skills/roast/SKILL.md` **or** `.cursor/skills/roast/SKILL.md`  
 4. Restart Cursor  
 
@@ -20,7 +20,7 @@ Prefer commands. See [commands.md](commands.md).
 
 - Restart after install  
 - Files: `~/.cursor/commands/roast.md`, `roast-only.md`, `roast-idea.md`, `roast-install.md`  
-- Re-run: `npx roastit install --tools cursor --yes`
+- Re-run: `npx roastit install`
 
 ## `roast: command not found`
 
@@ -50,7 +50,7 @@ npm view roastit description
 ## Update not applying
 
 ```bash
-npx roastit update --yes
+npx roastit update
 ```
 
 Downloads `roastit@latest` from npm, then reinstalls. Needs network + a published package.

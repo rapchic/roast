@@ -16,7 +16,7 @@ Commands **load** the skill. `/roast-full` is the same skill opened directly —
 
 ## Start here
 
-- [Getting started](getting-started.md) — bootstrap → restart → `/roast`
+- [Getting started](getting-started.md) — install → restart → `/roast`
 - [Commands](commands.md) — slash map + CLI
 - [Modes](modes.md) — roast-only, roast-and-fix, …
 - [Phase 0 INIT](init-phase.md)

@@ -26,8 +26,7 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 
 | Intent | Cursor slash | Terminal |
 |--------|--------------|----------|
-| First-time setup | — | `npx roastit bootstrap --yes` |
-| Install / update | `/roast-install` | `npx roastit install --tools cursor --yes` |
+| Install / update | `/roast-install` | `npx roastit@latest install` |
 | Roast + fix | `/roast` | (agent chat only) |
 | Roast only | `/roast-only` | (agent chat only) |
 | Plain English | `/roast-what` | (agent chat only) |
@@ -40,21 +39,30 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 
 ## CLI reference
 
-### `roast bootstrap`
+### `roast install`
 
-First-time setup: global IDE install plus project `.cursor/` in the current repo.
+Install skill + slash commands: **global** IDE dirs **and** project `.cursor/` (default).
 
 ```bash
-npx -y roastit@latest bootstrap --yes
-npx roastit bootstrap --no-project   # global only
+npx roastit@latest install
+npx roastit install --no-project   # global only
+npx roastit install --tools cursor,claude,codex
 ```
 
 | Flag | Description |
 |------|-------------|
-| `--tools <clients>` | `cursor`, `claude`, `codex` |
-| `--path <dir>` | Project root for `.cursor/` files |
-| `--no-project` | Skip project-level install |
-| `--yes` | Non-interactive |
+| `--tools <clients>` | `cursor`, `claude`, `codex` (comma-separated; default: auto-detect, else cursor) |
+| `--no-project` | Skip project `.cursor/` |
+| `--path <dir>` | Project root for `.cursor/` |
+
+**Cursor installs:**
+
+- `~/.cursor/skills/roast/SKILL.md`
+- `~/.cursor/commands/roast.md`, `roast-only.md`, `roast-idea.md`, `roast-what.md`, `roast-learn.md`, `roast-install.md`
+- `~/.cursor/rules/roast.mdc`
+- Plus the same under `.cursor/` in the current repo (unless `--no-project`)
+
+`roast bootstrap` is a **deprecated alias** for `install` (same flags).
 
 ### `roast init`
 
@@ -72,37 +80,17 @@ npx roastit init --agents --yes    # overwrite existing AGENTS.md
 | `--path <dir>` | Repository root (default: cwd) |
 | `--yes` | Overwrite existing config / AGENTS.md |
 | `--agents` | Write short AGENTS.md template instead of `.roast/config.json` |
-| `--install` | Also run bootstrap after init (works with `--agents` too) |
-
-### `roast install`
-
-Deploy skill, commands, and rules to IDE config directories.
-
-```bash
-npx roastit install
-npx roastit install --tools cursor,claude,codex --yes
-```
-
-| Flag | Description |
-|------|-------------|
-| `--tools <clients>` | `cursor`, `claude`, `codex` (comma-separated) |
-| `--yes` | Non-interactive |
-
-**Cursor installs:**
-
-- `~/.cursor/skills/roast/SKILL.md`
-- `~/.cursor/commands/roast.md`, `roast-only.md`, `roast-idea.md`, `roast-what.md`, `roast-learn.md`, `roast-install.md`
-- `~/.cursor/rules/roast.mdc`
+| `--install` | Also run `install` after init |
 
 ### `roast update`
 
 Fetches latest `roastit` from npm (`npx roastit@<ver> install …`), then deploys skill files.
 
 ```bash
-npx roastit update --yes
+npx roastit update
 ```
 
-Editing this git repo? Don’t use `update` for local changes — run `roastit install --tools cursor --yes` (or `npm run sync:project-cursor`). See `CONTRIBUTING.md`.
+Editing this git repo? Don’t use `update` for local changes — run `roastit install` (or `npm run sync:project-cursor`). See `CONTRIBUTING.md`.
 
 ### `roast status`
 
@@ -163,7 +151,7 @@ Base detection: `origin/HEAD` → `origin/main` → `origin/master`. Scope budge
 
 ```bash
 npm install -g roastit
-roast install --tools cursor --yes
+roast install
 ```
 
 ## Version

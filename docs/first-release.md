@@ -13,7 +13,7 @@ Publishing **roastit `0.1.0`** (or next 0.x / later 1.0.0 when the API is stable
 - [ ] `package.json` version === `skills/roast/SKILL.md` `version:`
 - [ ] CHANGELOG has `[0.1.0]` (or next version) — no leftover `[Unreleased]` dump
 - [ ] CodeRabbit GitHub App installed; `CODERABBIT_API_KEY` set for release prerelease gate ([coderabbit.md](coderabbit.md))
-- [ ] Local: `npm link && roastit bootstrap --yes` (or install) works
+- [ ] Local: `npm link && roastit install` works
 - [ ] Restart Cursor → `/roast` works; picker shows commands + optional `/roast-full`
 - [ ] Missing skill → `/roast` points to `/roast-install`
 - [ ] No hardcoded user paths in shipped code
@@ -29,7 +29,7 @@ Publishing **roastit `0.1.0`** (or next 0.x / later 1.0.0 when the API is stable
 ## Post-publish
 
 - [ ] `npm view roastit version`
-- [ ] `npx -y roastit@latest status`
+- [ ] `npx roastit@latest status`
 - [ ] README badge live; remove “until published” callout when green
 - [ ] Link npm package in GitHub About
 
