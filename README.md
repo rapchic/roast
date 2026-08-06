@@ -27,7 +27,7 @@ Restart Cursor, then **`/roast`**.
 | **`/roast-only`** | Verdict only |
 | **`/roast-idea`** | Critique a plan before code |
 | **`/roast-what`** | Explain the diff or a roast in plain English |
-| **`/roast-learn`** | Learn this project's patterns & antipatterns |
+| **`/roast-learn`** | Learn this project's patterns & antipatterns (`once` or `continuous`; optional chat transcripts) |
 | **`/roast-install`** | Reinstall the skill pack |
 | `/roast-full` | Optional — same skill loaded directly |
 

@@ -1,0 +1,34 @@
+---
+description: Project patterns & antipatterns for roast (written by /roast-learn). Prefer these over generic advice.
+alwaysApply: false
+globs:
+---
+
+# Project roast patterns
+
+> Generated/updated by `/roast-learn`. Agents: treat as project law for critiques. Cite evidence when claiming a violation.
+
+**learningMode:** once  
+**includeTranscripts:** false  
+
+**Last learned:** 2026-08-06  
+**Last transcript scan:** never
+
+## Patterns (prefer)
+
+- Prefer `npx @rapchic/roast install` (no `@latest`) in user-facing docs — `README.md:13`
+- Keep `commands/cursor/`, `skills/roast/`, `rules/` as source of truth; sync `.cursor/` via install — `AGENTS.md:28`
+- Read package name from `package.json` (`PACKAGE_NAME`) for npm fetch paths — `installer/src/update.js:1`
+- Scope roasts to diff budget ≤30 files; ask before expanding — `skills/roast/SKILL.md` hard rule 8
+
+## Antipatterns (avoid)
+
+- Do not put contributor/`npm link` flows in README — `AGENTS.md:14`
+- Do not hand-edit generated product copies under `.cursor/commands|skills|rules` (except workspace-only `/roast-no` and `roast-patterns.mdc`) — `AGENTS.md:29`
+- Do not invent patterns without `path:line` / convention / transcript evidence — `commands/cursor/roast-learn.md`
+- Do not use unscoped `npx roast` — name taken; package is `@rapchic/roast` — `docs/troubleshooting.md:33`
+
+## Layout & stack notes
+
+- CLI: `installer/`; skill: `skills/roast/`; Cursor commands: `commands/cursor/`
+- Bins after install: `roast` + alias `roastit`

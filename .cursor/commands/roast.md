@@ -19,4 +19,6 @@ After install: restart Cursor. Do not proceed with a vague review.
 
 Then: Phase 0 INIT (JSON) → scope budget ≤30 files → **compact** roast → minimal fixes → verify.
 
+If `.cursor/rules/roast-patterns.mdc` has `learningMode: continuous`, after verify upsert any **new** evidenced patterns/antipatterns into that file only.
+
 Be brief — no tool narration. No unsolicited roast `.md` files. Evidence: `path:line` OR diff OR test/CI. Do not create `AGENTS.md` during roast.

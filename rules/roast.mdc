@@ -16,7 +16,7 @@ Strict evidence-based critique. **Criticism Manager:** read the work, then bruta
 | `/roast-only` | **command** | verdict only |
 | `/roast-idea` | **command** | critique plan |
 | `/roast-what` | **command** | plain-English explainer (diff or prior roast) |
-| `/roast-learn` | **command** | learn project patterns → `.cursor/rules/roast-patterns.mdc` |
+| `/roast-learn` | **command** | learn patterns → `roast-patterns.mdc` (`once` \| `continuous` \| +`transcripts`) |
 | `/roast-install` | **command** | install only |
 | `/roast-full` | **skill** | full playbook (`skills/roast/SKILL.md`) |
 
@@ -34,7 +34,8 @@ Prefer the **commands**. `/roast-full` is the same skill loaded directly — not
 - NEVER soft-pad Critical/High with praise or "overall LGTM"
 - NEVER write unsolicited `*_ROAST.md` files
 - NEVER edit files in roast-only / roast-idea / roast-what unless user escalates
-- `/roast-learn` may **only** upsert `.cursor/rules/roast-patterns.mdc`
+- `/roast-learn` may **only** upsert `.cursor/rules/roast-patterns.mdc` (`once` or `continuous`; optional transcript mining)
+- When `learningMode: continuous`, `/roast` may also upsert that file with new evidenced antipatterns
 - NEVER create `AGENTS.md` during a roast (opt-in: `npx @rapchic/roast init --agents`)
 - Scope budget: default ≤30 files from diff/target — ask before expanding
 - Be brief — no tool-use narration in chat

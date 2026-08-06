@@ -24,6 +24,7 @@ All modes share Phase 0 INIT and evidence requirements. Mode controls whether ed
 1. Full algorithm through VERIFY
 2. Minimal diff — fix root cause, not symptoms
 3. Run repo test/lint commands from INIT context
+4. If `.cursor/rules/roast-patterns.mdc` has `learningMode: continuous`, after VERIFY upsert any **new** evidenced antipatterns/patterns into that file only (no other writes). Skip if nothing new.
 
 ## roast-idea
 
@@ -50,17 +51,21 @@ All modes share Phase 0 INIT and evidence requirements. Mode controls whether ed
 
 ## roast-learn
 
-**Triggers:** `/roast-learn`, `learn patterns`, `learn this repo`, `capture conventions`, `update roast patterns`
+**Triggers:** `/roast-learn`, `learn patterns`, `learn this repo`, `capture conventions`, `update roast patterns`, `learn from transcripts`, `keep learning`, `continuous learn`
 
 **Behavior:**
 1. **Project memory** — discover patterns & antipatterns **in this workspace**, not generic best practices
 2. INIT → read existing convention sources → sample ≤30 representative files (ask if over budget)
 3. If chat already has a roast → fold findings into antipatterns (with evidence)
-4. **Allowed edit (only):** upsert `.cursor/rules/roast-patterns.mdc` (template: `assets/templates/roast-patterns.mdc`)
-5. Merge with prior file: keep items still evidenced; replace stale; never invent patterns without `path:line` (or convention-file cite)
-6. Chat summary of what was learned + path written — **no code fixes**, no unsolicited `*_ROAST.md`
-7. Later roasts: INIT lists this rule under `conventionSources` — prefer it when judging consistency
-8. Output template: [output-format.md](output-format.md) → **roast-learn**
+4. **Learning cadence** (user intent or existing `roast-patterns.mdc`):
+   - **`once` (default)** — single upsert from code + conventions (+ optional transcripts if asked). Leaves `learningMode: once` unless continuous already on and user didn’t override.
+   - **`continuous`** — upsert now and set `learningMode: continuous`. Future `/roast-learn` runs merge incrementally. When continuous is on, `/roast` (roast-and-fix) should fold *new evidenced antipatterns* into `roast-patterns.mdc` at the end of the roast (still no other file writes).
+   - **`transcripts`** — one-time or continuous (if combined): scan **parent** Cursor agent transcripts for this project under `~/.cursor/projects/<slug>/agent-transcripts/**/*.jsonl` (skip `subagents/` unless user asks). Prefer recent / roast-related chats. Extract recurring do/don’t decisions; cite `transcript:<uuid>` and pair with `path:line` when code is named.
+5. **Allowed edit (only):** upsert `.cursor/rules/roast-patterns.mdc` (template: `assets/templates/roast-patterns.mdc`)
+6. Merge with prior file: keep items still evidenced; replace stale; never invent patterns without `path:line`, convention-file cite, or transcript cite (+ code cite when applicable)
+7. Chat summary of what was learned + path written + learning mode — **no code fixes**, no unsolicited `*_ROAST.md`
+8. Later roasts: INIT lists this rule under `conventionSources` — prefer it when judging consistency
+9. Output template: [output-format.md](output-format.md) → **roast-learn**
 
 ## roast-then-build
 

@@ -8,7 +8,13 @@ globs:
 
 > Generated/updated by `/roast-learn`. Agents: treat as project law for critiques. Cite evidence when claiming a violation.
 
-**Last learned:** (ISO date)
+**learningMode:** once  
+<!-- once | continuous — continuous = merge on later /roast-learn and fold new items after /roast -->  
+**includeTranscripts:** false  
+<!-- true = also mine Cursor agent transcripts for this workspace -->  
+
+**Last learned:** (ISO date)  
+**Last transcript scan:** (never)
 
 ## Patterns (prefer)
 

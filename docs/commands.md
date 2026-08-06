@@ -11,12 +11,23 @@ CLI subcommands and Cursor slash commands in one place.
 | Roast only (verdict) | `/roast-only` | command |
 | Roast idea before build | `/roast-idea` | command |
 | Plain-English explainer | `/roast-what` | command |
-| Learn project patterns | `/roast-learn` | command |
+| Learn project patterns | `/roast-learn` | command — `once` (default), `continuous`, optional `transcripts` |
 | Full playbook (direct) | `/roast-full` | **skill** |
 
 `/roast-install` **never roasts** — it only installs or updates files.
 
 Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontmatter `name: roast-full`) — same product, not a second tool.
+
+### `/roast-learn` modes
+
+| Say in chat | Effect |
+|-------------|--------|
+| `/roast-learn` (default) | **Once** — upsert patterns from code + conventions (+ this chat’s roast) |
+| `/roast-learn continuous` | Upsert **and** set `learningMode: continuous` so later learns / `/roast` keep merging |
+| `/roast-learn transcripts` | Also mine Cursor agent transcripts for this workspace (one-shot unless continuous) |
+| `/roast-learn continuous transcripts` | Continuous + transcript mining (`includeTranscripts: true`) |
+
+Writes only `.cursor/rules/roast-patterns.mdc`. See skill `references/modes.md`.
 
 **Current version:** see `package.json` / `roast --version` (0.x until 1.0 stability cut).
 
@@ -30,7 +41,7 @@ Prefer **commands**. `/roast-full` is the skill (`skills/roast/SKILL.md`, frontm
 | Roast + fix | `/roast` | (agent chat only) |
 | Roast only | `/roast-only` | (agent chat only) |
 | Plain English | `/roast-what` | (agent chat only) |
-| Learn patterns | `/roast-learn` | (agent chat only) |
+| Learn patterns | `/roast-learn` | (agent chat only — once / continuous / transcripts) |
 | Repo context JSON | — | `npx @rapchic/roast context --format json` |
 | Git diff signals | — | `npx @rapchic/roast diff --base auto` |
 | Short AGENTS.md (opt-in) | — | `npx @rapchic/roast init --agents` |

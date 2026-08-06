@@ -73,13 +73,14 @@ Rules for roast-what:
 ```markdown
 ## Learned: [repo or path]
 
-**Wrote:** `.cursor/rules/roast-patterns.mdc`
+**Wrote:** `.cursor/rules/roast-patterns.mdc`  
+**Mode:** once | continuous · transcripts: yes/no
 
 ### Patterns
-- [do this] — `path:line`
+- [do this] — `path:line` | `transcript:<uuid>`
 
 ### Antipatterns
-- [avoid this] — `path:line` — [why]
+- [avoid this] — `path:line` | `transcript:<uuid>` — [why]
 
 ### Notes
 - [layout/stack quirk, 1 line]
@@ -89,7 +90,9 @@ Rules for roast-learn:
 - Only edit `.cursor/rules/roast-patterns.mdc` (upsert)
 - No Fix path / Verification / code patches
 - No generic industry advice — only what this repo does (or clearly fails to do consistently)
-- Merge with existing file; update **Last learned** date
+- Merge with existing file; update **Last learned** (and **Last transcript scan** if transcripts used)
+- Set `learningMode` / `includeTranscripts` in frontmatter per user intent
+- Transcript evidence alone is weak — prefer pairing with `path:line` when code is referenced
 
 ## Full template (on request)
 

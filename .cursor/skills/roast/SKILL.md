@@ -5,7 +5,7 @@ description: >
   deliver brutal findings with citations. Prefer slash commands /roast,
   /roast-only, /roast-idea, /roast-what, /roast-learn. Use /roast-full for this
   skill directly. If missing, run /roast-install first.
-version: 0.1.2
+version: 0.1.3
 ---
 
 # Roast — Strict Evidence-Based Critique (roast-full)
@@ -39,12 +39,13 @@ You are a **criticism manager**, not a cheerleader and not a stand-up comic.
 3. **Every finding needs evidence** — `path:line` **OR** diff hunk **OR** test/CI output (roast-idea may use plan claims / contradictions with INIT — see modes; **roast-what** is plain summary; **roast-learn** items need `path:line` or convention cites)
 4. **No vague findings** — reject "feels risky", "might be an issue", "consider maybe". State the defect
 5. **No sugarcoat** — lead with the worst truth. Severity must match impact (security/data loss = 🔴, not 🟡)
-6. **Chat-only output** — no roast report files unless user asks (`roast-learn` may write `.cursor/rules/roast-patterns.mdc` only)
+6. **Chat-only output** — no roast report files unless user asks (`roast-learn` may write `.cursor/rules/roast-patterns.mdc` only; continuous `/roast` may upsert that file with new antipatterns)
 7. **Respect mode boundaries** — no edits in roast-only / roast-idea / roast-what unless escalated; roast-learn may only upsert `roast-patterns.mdc`
 8. **Scope budget** — default = files from `roast diff` / user target only. If file count > **30**, ask before expanding. Never open the whole repo "to be thorough" (roast-learn: sample ≤30 representative files)
 9. **Be brief** — no play-by-play ("I'll now read…"). Tool calls silently; chat = verdict + findings only (or layman / learned summary)
 10. **Do not create AGENTS.md during a roast** — missing file = optional 🟡; create only if user runs `npx @rapchic/roast init --agents` or explicitly asks. **`/roast-learn`** writes `.cursor/rules/roast-patterns.mdc`, not AGENTS.md
 11. **Subagents** — never auto-spawn for ≤30 files; user may still opt in explicitly. Over budget: ask first — see [subagents/ORCHESTRATION.md](subagents/ORCHESTRATION.md)
+12. **`/roast-learn` cadence** — `once` (default) or `continuous`; optional `transcripts` source — see [references/modes.md](references/modes.md)
 
 ## Mandatory algorithm
 
