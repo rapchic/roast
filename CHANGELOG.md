@@ -27,6 +27,7 @@ First npm release of **`roastit`** (0.x = API may still change).
 - Docs, CI, release workflow, smoke tests, LICENSE
 - CodeRabbit: `.coderabbit.yaml` + CLI workflow on `main` + prerelease gate before npm publish
 - Local CI: `npm run ci` + `.githooks/pre-push` (catch failures before GitHub)
+- Cross-platform `npm test` via `scripts/run-tests.js` (Linux CI glob fix)
 
 ### Changed
 

@@ -4,3 +4,5 @@ node_modules/
 .roast/
 roast-*.tgz
 roastit-*.tgz
+.npmrc
+scripts/npm-auth-setup.sh
