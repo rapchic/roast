@@ -26,7 +26,7 @@ globs:
 - Do not put contributor/`npm link` flows in README — `AGENTS.md:14`
 - Do not hand-edit generated product copies under `.cursor/commands|skills|rules` (except workspace-only `/roast-no` and `roast-patterns.mdc`) — `AGENTS.md:29`
 - Do not invent patterns without `path:line` / convention / transcript evidence — `commands/cursor/roast-learn.md`
-- Do not use unscoped `npx roast` — name taken; package is `@rapchic/roast` — `docs/troubleshooting.md:33`
+- Do not use unscoped `npx roast` — name taken; package is `@rapchic/roast` — `README.md` (Troubleshooting)
 
 ## Layout & stack notes
 

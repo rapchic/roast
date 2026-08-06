@@ -7,7 +7,7 @@
 - [ ] `npm test` passes
 - [ ] `npm run smoke` passes (if install/CLI changed)
 - [ ] CHANGELOG updated for this release (if user-visible)
-- [ ] Docs updated in `docs/` (if CLI, commands, or install behavior changed)
+- [ ] Docs updated (README / CONTRIBUTING) if CLI/commands/install/release behavior changed
 - [ ] CodeRabbit / CI notes updated if workflows changed
 - [ ] Skill `SKILL.md` version bumped if skill behavior changed (must match `package.json`)
 - [ ] No product/domain-specific examples added

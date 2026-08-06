@@ -24,7 +24,7 @@ Then **restart Cursor** (or Reload Window).
 Verify:
 
 ```bash
-roastit --version          # should match package.json (0.1.0…)
+roast --version            # should match package.json
 roastit status
 npm run ci                 # test + lint + smoke + pack (same as GitHub Actions)
 ```
@@ -95,6 +95,25 @@ Keep these separate (also in `dev/roast-no.md`):
 | README | User-facing only | Never put `npm link` / “pre-publish” here |
 | `/roast-no` | Not shipped | Project `.cursor/` only |
 
+## The `dev/` folder (workspace-only)
+
+**Not in the npm package.** `package.json` → `files` only ships `installer/`, `skills/`, `rules/`, `commands/`, a couple of scripts, README, LICENSE. `dev/` never goes in `npm pack` / `npx @rapchic/roast`.
+
+| Path | Role |
+|------|------|
+| `dev/roast-no.md` | Full contributor don’t-list (human + agent readable) |
+| `dev/commands/roast-no.md` | Cursor **slash command** source for `/roast-no` |
+
+**Sync path**
+
+```text
+dev/commands/roast-no.md  →  .cursor/commands/roast-no.md
+```
+
+Run **`npm run dev:setup`** (copies that file; also installs product skill/commands and enables local CI hooks). Or copy manually. Product `roast install` / `sync:project-cursor` does **not** install `/roast-no` — it stays repo-local.
+
+After editing `dev/roast-no.md` or `dev/commands/roast-no.md`, re-run `npm run dev:setup` (or re-copy the command).
+
 ## Layout
 
 | Area | Path |
@@ -103,16 +122,65 @@ Keep these separate (also in `dev/roast-no.md`):
 | Skill (shipped) | `skills/roast/` |
 | Commands (shipped) | `commands/cursor/` |
 | Rule (shipped) | `rules/roast.mdc` |
-| Workspace don’t-list | `dev/roast-no.md`, `dev/commands/roast-no.md` |
-| Docs | `docs/` |
+| Workspace don’t-list | `dev/roast-no.md`, `dev/commands/roast-no.md` (not in npm pack) |
 | Tests | `test/` |
 
 Version: `package.json` === `skills/roast/SKILL.md` frontmatter `version:` (stay on **0.x** until a real 1.0).
 
+## Releasing
+
+Semver via git tags. **Pushing `main` does not publish to npm** — only tag `v*.*.*` runs `.github/workflows/release.yml`.
+
+### Version sync
+
+1. `package.json` → `"version": "X.Y.Z"`
+2. `skills/roast/SKILL.md` frontmatter → `version: X.Y.Z`
+3. `CHANGELOG.md` — `[X.Y.Z] - YYYY-MM-DD` (fold Unreleased)
+
+| Range | Meaning |
+|-------|---------|
+| **0.x** | Contracts may change (current **0.1.3**) |
+| **1.0.0+** | Stable slash + CLI APIs |
+
+### Automated release
+
+```bash
+git tag vX.Y.Z && git push origin main --tags
+```
+
+Workflow: CodeRabbit prerelease (soft-skip without secret) → test/smoke/pack → **npm publish** → GitHub Packages → GitHub Release.
+
+Secrets: `NPM_TOKEN` (Automation / bypass 2FA). `GITHUB_TOKEN` + `packages: write` for GitHub Packages sidebar (not the same as npmjs). One-shot sidebar: **Actions → Publish GitHub Package**.
+
+### Publish checklist
+
+- [ ] `npm test` · lint · smoke · `npm pack --dry-run`
+- [ ] Versions match · CHANGELOG section · no hardcoded user paths
+- [ ] CodeRabbit App + optional `CODERABBIT_API_KEY`
+- [ ] Tag → release (or `npm publish --access public`)
+- [ ] Post: `npm view @rapchic/roast version` · GitHub About → npm
+
+| Symptom | Fix |
+|---------|-----|
+| `npm publish` 403 / 2FA | Automation token; refresh `NPM_TOKEN` |
+| Packages sidebar empty | Run Publish GitHub Package workflow |
+| CodeRabbit CLI skipped | Soft-skip OK; set `CODERABBIT_API_KEY` when you want the gate |
+
+### CodeRabbit
+
+| Surface | Mechanism | Secret |
+|---------|-----------|--------|
+| PRs → `main` | [CodeRabbit App](https://github.com/apps/coderabbitai) | none |
+| Push / manual | `.github/workflows/coderabbit.yml` | `CODERABBIT_API_KEY` |
+| Tag `v*.*.*` | `coderabbit-prerelease` in `release.yml` | `CODERABBIT_API_KEY` |
+
+Config: [`.coderabbit.yaml`](.coderabbit.yaml). Create Agentic key → repo secret. Do **not** run CLI with that secret on fork PRs.
+
 ## Pull requests
 
 - [ ] `npm run ci` (or push — pre-push hook runs it)
-- [ ] User-facing changes → `CHANGELOG.md` + `docs/` if needed
+- [ ] User-facing changes → `CHANGELOG.md` + README if needed
+- [ ] Release notes → this file’s **Releasing** section
 - [ ] Generic examples only (auth / API / UI)
 - [ ] No dual publish paths in README (`/roast-no` should stay clean)
 - [ ] Release PRs: CodeRabbit App review OK; CLI secret set if tagging
@@ -120,5 +188,5 @@ Version: `package.json` === `skills/roast/SKILL.md` frontmatter `version:` (stay
 ## More
 
 - [AGENTS.md](AGENTS.md) — short agent rules for this repo  
-- [docs/README.md](docs/README.md) — product docs  
 - [dev/roast-no.md](dev/roast-no.md) — full don’t-list  
+- [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md)  

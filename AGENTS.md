@@ -6,7 +6,7 @@ Meta guidance for AI agents editing **this git repository**.
 
 | | **Shipped (`@rapchic/roast`)** | **This repo** |
 |--|-------------------------|--------------|
-| Ship | `installer/`, `skills/`, `rules/`, `commands/cursor/`, `scripts/`, README, LICENSE | `dev/`, `docs/`, `test/`, `AGENTS.md`, project `.cursor/commands/roast-no.md` |
+| Ship | `installer/`, `skills/`, `rules/`, `commands/cursor/`, `scripts/`, README, LICENSE | `dev/`, `test/`, `AGENTS.md`, project `.cursor/commands/roast-no.md` |
 | Install | `npx @rapchic/roast …` | `npm link` + `npm run dev:setup` |
 | Update | `npx @rapchic/roast update` (npm fetch) | After edits: `npm run sync:project-cursor` + `roast install --tools cursor` |
 | Don’t-list | — | `dev/roast-no.md` · project slash `/roast-no` |
@@ -46,7 +46,7 @@ npm run lint
 
 ## Version sync
 
-`package.json` version === `skills/roast/SKILL.md` frontmatter `version:` (currently **0.1.0**)
+`package.json` version === `skills/roast/SKILL.md` frontmatter `version:` (currently **0.1.3**)
 
 ## Content rules
 
@@ -62,4 +62,4 @@ See **`dev/roast-no.md`** (run project **`/roast-no`**). Highlights:
 - Don’t ship workspace tools in the npm package
 - Don’t use `npx @rapchic/roast update` for local clone refresh — use `roast install`
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/](docs/README.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) (includes releasing) and [README.md](README.md).

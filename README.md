@@ -5,7 +5,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org/)
 [![CI](https://github.com/rapchic/roast/actions/workflows/ci.yml/badge.svg)](https://github.com/rapchic/roast/actions/workflows/ci.yml)
 
-**Evidence-based code roast for AI coding agents** — install once, roast any repo with citations. No LLM in the CLI; your agent runs the roast.
+**AI code review skill for Cursor, Claude Code & Codex** — evidence-based `/roast` with `file:line` citations. CLI installs the skill; no LLM API in the package.
 
 ## Quick start
 
@@ -27,9 +27,22 @@ Restart Cursor, then **`/roast`**.
 | **`/roast-only`** | Verdict only |
 | **`/roast-idea`** | Critique a plan before code |
 | **`/roast-what`** | Explain the diff or a roast in plain English |
-| **`/roast-learn`** | Learn this project's patterns & antipatterns (`once` or `continuous`; optional chat transcripts) |
+| **`/roast-learn`** | Learn patterns (`once` / `continuous`; optional `transcripts`) |
 | **`/roast-install`** | Reinstall the skill pack |
 | `/roast-full` | Optional — same skill loaded directly |
+
+`/roast-install` **never roasts**. Prefer **commands**; `/roast-full` is the skill entry (`name: roast-full`).
+
+#### `/roast-learn`
+
+| Say | Effect |
+|-----|--------|
+| `/roast-learn` | **Once** — upsert from code + conventions |
+| `/roast-learn continuous` | Also set `learningMode: continuous` |
+| `/roast-learn transcripts` | Mine Cursor agent transcripts |
+| `/roast-learn continuous transcripts` | Both |
+
+Writes only `.cursor/rules/roast-patterns.mdc`.
 
 ## What it does
 
@@ -38,81 +51,61 @@ Restart Cursor, then **`/roast`**.
 - **Surfaces diff signals** (`roast diff`) — changed files, test/doc hints, suggested scope
 - **Enforces evidence** — findings cite `file:line`, diff, or test output; chat-only output
 
-[Full documentation →](docs/README.md)
-
-## CLI commands
+## CLI
 
 | Command | Description |
 |---------|-------------|
-| `roast install` | Install skill + commands (global + project `.cursor/`) |
-| `roast update` | Update installed skill |
+| `roast install` | Skill + commands (global + project `.cursor/`) |
+| `roast update` | Fetch latest from npm, reinstall |
 | `roast status` | Version + update check |
 | `roast uninstall` | Remove from IDEs |
 | `roast context` | Phase 0 INIT — stack, scripts, rules, CI |
-| `roast diff` | Git diff signals for roast input |
-| `roast init` | Detect repo + IDE, write `.roast/config.json` |
-| `roast bootstrap` | Alias for `install` (prefer `install`) |
+| `roast diff` | Git diff signals (includes working tree by default) |
+| `roast init` | `.roast/config.json`, or `--agents` for short AGENTS.md |
+| `roast bootstrap` | Alias for `install` |
 
-See [docs/commands.md](docs/commands.md) for flags and examples.
+```bash
+npx @rapchic/roast install
+npx @rapchic/roast install --no-project
+npx @rapchic/roast install --tools cursor,claude,codex
+npx @rapchic/roast context --format json
+npx @rapchic/roast diff --base auto --format json
+npx @rapchic/roast init --agents
+```
+
+| Flag (common) | Applies to | Meaning |
+|---------------|------------|---------|
+| `--tools <list>` | install / uninstall | `cursor`, `claude`, `codex` |
+| `--no-project` | install | Skip project `.cursor/` |
+| `--path <dir>` | install / init / context / diff | Repo root |
+| `--format json\|markdown` | context / diff | Output shape |
+| `--base <branch\|auto>` | diff | Compare base |
+| `--committed-only` | diff | Ignore dirty/untracked |
+| `--agents` | init | Write short AGENTS.md (never during a roast) |
+
+Scope budget for `diff`: **30** files. Global: `npm i -g @rapchic/roast && roast install`.
 
 ## Roast modes
 
 | Mode | Trigger | Edits |
 |------|---------|-------|
-| **roast-only** | `/roast-only`, "roast independently" | No |
-| **roast-and-fix** | `/roast`, "roast and fix" | Yes |
-| **roast-idea** | `/roast-idea`, "roast this idea" | No |
-| **roast-what** | `/roast-what`, "eli5", "what changed" | No |
-| **roast-learn** | `/roast-learn`, "learn this repo" | `roast-patterns.mdc` only |
+| **roast-only** | `/roast-only` | No |
+| **roast-and-fix** | `/roast` | Yes |
+| **roast-idea** | `/roast-idea` | No |
+| **roast-what** | `/roast-what`, "eli5" | No |
+| **roast-learn** | `/roast-learn` | `roast-patterns.mdc` only |
 | **roast-then-build** | "roast then implement" | After agreement |
-| **roast-then-apply** | "preview, roast fix, apply" | After approval |
-| **roast-no-patch** | "don't patch", "senior architect" | Structural only |
+| **roast-then-apply** | "preview then apply" | After approval |
+| **roast-no-patch** | "don't patch" | Structural only |
 
-Details: [docs/modes.md](docs/modes.md)
+Playbooks: [skills/roast/references/modes.md](skills/roast/references/modes.md) · [init.md](skills/roast/references/init.md).
 
 ## Phase 0 INIT
-
-Before any roast, gather repo context:
 
 ```bash
 npx @rapchic/roast context
 npx @rapchic/roast diff --base auto
 ```
-
-The agent reads conventions (AGENTS.md, `.cursor/rules`, CI) and scopes the critique. See [docs/init-phase.md](docs/init-phase.md).
-
-## Examples
-
-### Auth middleware
-
-```
-User: /roast-only — review src/middleware/auth.ts
-
-## Roast: auth middleware
-**Context:** node — npm · src/middleware/auth.ts · vitest · AGENTS.md
-### The real problem
-Optional auth treats missing tokens as guest access on routes that require enforcement.
-### Findings
-- 🔴 Missing enforcement on DELETE — `src/middleware/auth.ts:41` — ...
-```
-
-### API handler
-
-```
-User: /roast — review the payment handler
-
-Agent: INIT → findings → minimal fix → npm test
-```
-
-### Dashboard component
-
-```
-User: /roast-idea — add infinite scroll to Dashboard
-
-Agent: critiques plan before code — edge cases, a11y, test strategy
-```
-
-More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
 ## Install paths
 
@@ -124,9 +117,31 @@ More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
 ## Package name
 
-**`@rapchic/roast`** on [npm](https://www.npmjs.com/package/@rapchic/roast). Bins: **`roast`** and **`roastit`**.
+**`@rapchic/roast`** on [npm](https://www.npmjs.com/package/@rapchic/roast). Bins: **`roast`** and **`roastit`**. Unscoped `roast` / `roastit` are different packages.
 
-GitHub’s **Packages** sidebar uses [GitHub Packages](https://github.com/rapchic/roast/pkgs/npm/roast) (separate registry). Prefer npmjs for install.
+GitHub’s **Packages** sidebar is a [separate registry](https://github.com/rapchic/roast/pkgs/npm/roast). Prefer npmjs for install. Pushing to `main` does **not** publish to npm — only a `v*.*.*` tag (see [CONTRIBUTING.md](CONTRIBUTING.md#releasing)).
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| Two `/roast` entries | Prefer the **command** (“Loads roast-full”); `/roast-full` is the skill |
+| Skill missing / vague review | `/roast-install` or `npx @rapchic/roast install`, then restart Cursor |
+| Slash commands missing | Restart; re-run install; check `~/.cursor/commands/roast*.md` |
+| `roast: command not found` | `npm i -g @rapchic/roast` or `npm link` from a clone |
+| `~/.cursor` permission errors | Writable home; macOS Full Disk Access if needed |
+| `roast diff` fails | Need a git repo, or pass `--base origin/main` |
+| Update not applying | `npx @rapchic/roast update` (npm users). Clone → `roast install` — see CONTRIBUTING |
+| Still stuck | `npx @rapchic/roast status` — include version, Node, IDE in issues |
+
+## Examples
+
+```
+User: /roast-only — review src/middleware/auth.ts
+→ compact roast with path:line evidence
+```
+
+More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
 ## What roast is not
 

@@ -1,7 +1,7 @@
 {
   "name": "@rapchic/roast",
   "version": "0.1.3",
-  "description": "Evidence-based code roast CLI — install roast skills for AI coding agents",
+  "description": "AI code review skill for Cursor, Claude Code & Codex — evidence-based /roast with file:line citations. CLI installs the skill; no LLM API in the package.",
   "type": "module",
   "bin": {
     "roast": "installer/bin/cli.js",
@@ -36,15 +36,29 @@
   },
   "keywords": [
     "ai",
+    "ai-agents",
     "agents",
     "cursor",
     "claude",
+    "claude-code",
     "codex",
+    "openai",
     "code-review",
+    "code-roast",
     "skills",
+    "agent-skills",
     "cli",
+    "developer-tools",
+    "llm",
     "roast",
-    "roastit"
+    "roastit",
+    "criticism-manager",
+    "ai-code-review",
+    "code-review-tool",
+    "cursor-ide",
+    "slash-commands",
+    "agentic",
+    "devtools"
   ],
   "license": "MIT",
   "repository": {

@@ -39,9 +39,12 @@ reviews:
     - path: "rules/**"
       instructions: |
         Keep slash map in sync with shipped commands. No contributor/npm link flows.
-    - path: "docs/**"
+    - path: "README.md"
       instructions: |
-        README stays user-facing (npx roastit). Clone/dev setup belongs in CONTRIBUTING.md.
+        User-facing only (npx @rapchic/roast). No npm link / clone-only flows.
+    - path: "CONTRIBUTING.md"
+      instructions: |
+        Contributor + releasing + CodeRabbit. Keep package vs workspace separate.
     - path: ".github/workflows/**"
       instructions: |
         Never expose CODERABBIT_API_KEY on untrusted pull_request from forks.

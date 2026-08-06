@@ -45,4 +45,4 @@ Do not declare roast-and-fix complete with:
 - Failing tests in changed scope
 - Lint errors in edited files
 
-See [verification reference](../skills/roast/references/verification.md).
+See [verification.md](verification.md).

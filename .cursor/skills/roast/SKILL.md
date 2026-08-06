@@ -139,7 +139,7 @@ Full template (when user asks for detailed roast): same file, "Full template" se
 
 ## Verification
 
-Fix modes only — [references/verification.md](references/verification.md) when running VERIFY.
+Fix modes only — [references/verification.md](references/verification.md) when running VERIFY. Optional handoff to a fix skill: [references/fix-integration.md](references/fix-integration.md).
 
 ## Subagents
 
