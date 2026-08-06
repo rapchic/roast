@@ -178,6 +178,17 @@ Config: [`.coderabbit.yaml`](.coderabbit.yaml). Create Agentic key → repo secr
 
 ## Pull requests
 
+**`main` is protected** — no direct pushes. Branch → PR → merge.
+
+```bash
+git checkout -b my-change
+# …edit…
+npm run ci
+git push -u origin HEAD
+gh pr create
+gh pr merge   # after CI is green (when runners pick up the job)
+```
+
 - [ ] `npm run ci` (or push — pre-push hook runs it)
 - [ ] User-facing changes → `CHANGELOG.md` + README if needed
 - [ ] Release notes → this file’s **Releasing** section
