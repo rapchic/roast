@@ -34,10 +34,21 @@ Workflow `.github/workflows/release.yml`:
 1. **CodeRabbit prerelease** (CLI review since previous tag; needs `CODERABBIT_API_KEY`)
 2. `npm ci` · test · smoke · **pack**
 3. Install from tarball (smoke)
-4. `npm publish`
-5. GitHub Release with `rapchic-roast-*.tgz`
+4. `npm publish` (npmjs)
+5. **GitHub Packages** publish (fills repo **Packages** sidebar — not the same as npmjs)
+6. GitHub Release with `rapchic-roast-*.tgz`
 
 Requires secrets: `NPM_TOKEN`, and optionally `CODERABBIT_API_KEY` (see [coderabbit.md](coderabbit.md)).
+`GITHUB_TOKEN` (Actions) publishes to GitHub Packages when `packages: write` is set.
+
+### GitHub “Packages” sidebar
+
+That UI only lists **GitHub Packages** (`npm.pkg.github.com`), not [npmjs.com/package/@rapchic/roast](https://www.npmjs.com/package/@rapchic/roast).
+
+- Primary install (everyone): `npx @rapchic/roast install`
+- GitHub registry (optional): configure `@rapchic:registry=https://npm.pkg.github.com` + a PAT with `read:packages`
+
+One-shot publish to fill the sidebar: **Actions → Publish GitHub Package → Run workflow**.
 
 ## Pre-publish failure inventory
 

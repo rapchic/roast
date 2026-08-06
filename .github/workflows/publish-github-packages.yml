@@ -1,0 +1,36 @@
+name: Publish GitHub Package
+
+# Fills the repo "Packages" sidebar (GitHub Packages registry).
+# npmjs remains the primary install: npx @rapchic/roast install
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: gh-packages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish-github-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: https://npm.pkg.github.com
+          scope: '@rapchic'
+
+      - run: npm ci
+
+      - name: Publish @rapchic/roast to GitHub Packages
+        run: npm publish --access public --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

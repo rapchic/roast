@@ -64,6 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -97,10 +98,19 @@ jobs:
           grep -q roast-full "$HOME/.cursor/skills/roast/SKILL.md"
           echo "Tarball install gate OK"
 
-      - name: Publish to npm
-        run: npm publish --access public
+      - name: Publish to npmjs
+        run: npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # GitHub sidebar "Packages" only lists GitHub Packages — not npmjs.org.
+      - name: Publish to GitHub Packages
+        run: |
+          echo "@rapchic:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+          npm publish --access public --registry https://npm.pkg.github.com --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

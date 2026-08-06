@@ -124,7 +124,9 @@ More: [examples/expected-roast-output.md](examples/expected-roast-output.md)
 
 ## Package name
 
-**`@rapchic/roast`** on npm. Bins: **`roast`** and **`roastit`**.
+**`@rapchic/roast`** on [npm](https://www.npmjs.com/package/@rapchic/roast). Bins: **`roast`** and **`roastit`**.
+
+GitHub’s **Packages** sidebar uses [GitHub Packages](https://github.com/rapchic/roast/pkgs/npm/roast) (separate registry). Prefer npmjs for install.
 
 ## What roast is not
 
