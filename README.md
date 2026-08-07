@@ -1,4 +1,4 @@
-# @rapchic/roast
+# /roast
 
 [![npm version](https://img.shields.io/npm/v/%40rapchic%2Froast.svg)](https://www.npmjs.com/package/@rapchic/roast)
 [![license: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
